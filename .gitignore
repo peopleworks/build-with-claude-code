@@ -1,0 +1,13 @@
+# Dependencias
+node_modules/
+
+# Temporales y artefactos
+.playwright-mcp/
+*.log
+.DS_Store
+Thumbs.db
+
+# Secretos (por si acaso)
+.env
+.env.*
+!.env.example

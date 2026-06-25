@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build with Claude Code · Curso Intensivo | PeopleWorks</title>
+    <meta name="description" content="Curso intensivo de 3 días para dominar Claude Code: fundamentos, context engineering, skills, MCP, agentes en paralelo y los 5 pilares de la ingeniería agéntica. Incluye grabaciones con asistente IA y PDF de resumen.">
+    <meta name="theme-color" content="#0F766E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Noto+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #0F766E;
+            --primary-light: #14B8A6;
+            --primary-dark: #134E4A;
+            --primary-darkest: #0D3D38;
+            --accent: #7c3aed;
+            --accent-light: #a78bfa;
+            --accent-dark: #6d28d9;
+            --accent-glow: rgba(124, 58, 237, 0.35);
+            --orange: #ff9d10;
+            --orange-light: #ffb74d;
+            --bg-light: #F0FDFA;
+            --bg-light-2: #CCFBF1;
+            --bg-violet: #f5f3ff;
+            --text-dark: #1a1a2e;
+            --text-medium: #4a5568;
+            --text-light: #718096;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --shadow-sm: 0 2px 8px rgba(15, 118, 110, 0.08);
+            --shadow-md: 0 8px 30px rgba(15, 118, 110, 0.12);
+            --shadow-lg: 0 20px 60px rgba(15, 118, 110, 0.15);
+            --shadow-xl: 0 30px 80px rgba(15, 118, 110, 0.2);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --font-title: 'Manrope', sans-serif;
+            --font-body: 'Noto Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            background: var(--bg-light);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .section { padding: 90px 0; position: relative; }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.8rem; font-weight: 500;
+            color: var(--accent);
+            text-transform: uppercase; letter-spacing: 3px;
+            margin-bottom: 12px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .section-label.center { justify-content: center; }
+        .section-label::before { content: ''; width: 30px; height: 2px; background: var(--accent); }
+        .section-label.center::before { display: none; }
+
+        .section-title {
+            font-family: var(--font-title);
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800; color: var(--primary-dark);
+            line-height: 1.2; margin-bottom: 20px;
+        }
+        .section-subtitle { font-size: 1.1rem; color: var(--text-medium); max-width: 680px; line-height: 1.8; }
+        .center .section-subtitle, .section-header.center .section-subtitle { margin: 0 auto; }
+        .section-header { margin-bottom: 56px; }
+        .section-header.center { text-align: center; }
+        .highlight { color: var(--primary-light); }
+        .highlight-accent { color: var(--accent); }
+        .highlight-orange { color: var(--orange); }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 92vh; display: flex; align-items: center;
+            background: linear-gradient(145deg, #0D1B2A 0%, var(--primary-darkest) 25%, var(--primary-dark) 50%, #1e1b4b 80%, #312e81 100%);
+            position: relative; overflow: hidden; padding: 100px 0 60px;
+        }
+        .hero-bg { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: orbFloat 20s ease-in-out infinite; }
+        .orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, var(--accent), transparent 70%); top: -200px; right: -100px; }
+        .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, var(--primary-light), transparent 70%); bottom: -150px; left: -100px; opacity: 0.3; animation-delay: -7s; }
+        .orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, var(--orange), transparent 70%); top: 20%; left: 20%; opacity: 0.15; animation-delay: -10s; }
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-20px, 20px) scale(0.96); }
+        }
+        .grid-overlay {
+            position: absolute; inset: 0; z-index: 1;
+            background-image: linear-gradient(rgba(124,58,237,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        .hero-content { position: relative; z-index: 2; max-width: 880px; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--glass); border: 1px solid var(--glass-border);
+            padding: 8px 18px; border-radius: 50px;
+            font-family: var(--font-mono); font-size: 0.78rem;
+            color: var(--bg-light-2); margin-bottom: 26px; backdrop-filter: blur(10px);
+        }
+        .hero-badge .pulse { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.4);} 50% { box-shadow: 0 0 0 8px rgba(74,222,128,0);} }
+        .hero h1 {
+            font-family: var(--font-title);
+            font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+            font-weight: 800; line-height: 1.08; color: var(--white);
+            letter-spacing: -0.02em; margin-bottom: 22px;
+        }
+        .hero h1 .accent-line {
+            display: block;
+            background: linear-gradient(90deg, var(--accent-light), var(--accent), var(--orange));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hero-desc { font-size: 1.15rem; color: rgba(255,255,255,0.72); line-height: 1.8; max-width: 620px; margin-bottom: 32px; }
+        .hero-meta { display: flex; gap: 26px; flex-wrap: wrap; margin-bottom: 36px; }
+        .hero-meta-item { display: flex; align-items: center; gap: 10px; font-size: 0.95rem; color: rgba(255,255,255,0.82); }
+        .hero-meta-item i { color: var(--accent-light); font-size: 1.1rem; }
+        .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--accent); color: var(--white);
+            padding: 15px 34px; border-radius: 50px;
+            font-family: var(--font-title); font-size: 1rem; font-weight: 700;
+            text-decoration: none; transition: all 0.3s; box-shadow: 0 8px 30px var(--accent-glow); border: none; cursor: pointer;
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(124,58,237,0.5); }
+        .btn-secondary {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--glass); color: var(--white);
+            padding: 15px 30px; border-radius: 50px;
+            font-family: var(--font-title); font-size: 1rem; font-weight: 600;
+            text-decoration: none; border: 1px solid var(--glass-border); transition: all 0.3s; backdrop-filter: blur(10px);
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+
+        /* ===== STATS STRIP ===== */
+        .stats { background: var(--white); }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .stat-card { text-align: center; padding: 28px 18px; border-radius: var(--radius-lg); background: var(--bg-light); border: 1px solid rgba(15,118,110,0.06); transition: all .3s; }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+        .stat-num { font-family: var(--font-title); font-size: 2.4rem; font-weight: 800; color: var(--accent); line-height: 1; }
+        .stat-text { font-size: 0.88rem; color: var(--text-medium); margin-top: 8px; }
+
+        /* ===== SESSIONS / CURRICULUM ===== */
+        .sessions { background: linear-gradient(180deg, var(--white) 0%, var(--bg-light) 100%); }
+        .session-block { margin-bottom: 48px; }
+        .session-head {
+            display: flex; align-items: center; gap: 18px; margin-bottom: 28px; flex-wrap: wrap;
+        }
+        .session-tag {
+            font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600;
+            color: var(--white); padding: 7px 16px; border-radius: 50px; letter-spacing: 1px;
+            background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+        }
+        .session-block:nth-child(2) .session-tag { background: linear-gradient(135deg, var(--primary), var(--primary-light)); }
+        .session-head h3 { font-family: var(--font-title); font-size: 1.5rem; font-weight: 800; color: var(--primary-dark); }
+        .session-live { font-family: var(--font-mono); font-size: 0.72rem; color: #16a34a; background: rgba(74,222,128,0.12); padding: 4px 12px; border-radius: 50px; }
+        .topic-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+        .topic-card {
+            background: var(--white); border-radius: var(--radius-lg); padding: 26px;
+            border: 1px solid rgba(15,118,110,0.07); box-shadow: var(--shadow-sm); transition: all 0.35s;
+        }
+        .topic-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: rgba(124,58,237,0.2); }
+        .topic-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; background: var(--bg-violet); color: var(--accent); margin-bottom: 16px; }
+        .topic-card h4 { font-family: var(--font-title); font-size: 1.08rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 12px; line-height: 1.3; }
+        .topic-card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+        .topic-card li { display: flex; gap: 9px; font-size: 0.85rem; color: var(--text-medium); line-height: 1.5; }
+        .topic-card li i { color: var(--accent); font-size: 0.65rem; margin-top: 7px; }
+
+        .assignment {
+            margin-top: 26px; background: linear-gradient(145deg, #0f172a, #1e293b);
+            border-radius: var(--radius-lg); padding: 26px 30px; border: 1px solid rgba(124,58,237,0.15); position: relative; overflow: hidden;
+        }
+        .assignment::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--accent), var(--primary-light), var(--orange)); }
+        .assignment-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-light); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+        .assignment ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .assignment li { display: flex; gap: 12px; font-family: var(--font-mono); font-size: 0.86rem; color: rgba(255,255,255,0.82); line-height: 1.6; }
+        .assignment li i { color: #4ade80; margin-top: 4px; }
+
+        /* ===== PILLARS ===== */
+        .pillars { background: var(--white); position: relative; overflow: hidden; }
+        .pillars::before { content: ''; position: absolute; top: -200px; right: -200px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(124,58,237,0.06), transparent 70%); }
+        .pillars-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; margin-top: 16px; }
+        .pillar-card { text-align: center; padding: 30px 18px; border-radius: var(--radius-lg); background: var(--bg-light); border: 1px solid rgba(15,118,110,0.06); transition: all 0.35s; position: relative; }
+        .pillar-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: rgba(124,58,237,0.2); }
+        .pillar-num { font-family: var(--font-title); font-size: 1.1rem; font-weight: 800; color: var(--white); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; background: linear-gradient(135deg, var(--accent), var(--primary-light)); }
+        .pillar-card h4 { font-family: var(--font-title); font-size: 0.95rem; font-weight: 700; color: var(--primary-dark); line-height: 1.35; }
+
+        /* ===== CAPSTONE ===== */
+        .capstone { background: var(--bg-light); }
+        .capstone-card { background: linear-gradient(145deg, #1e1b4b, var(--accent-dark)); border-radius: var(--radius-xl); padding: 48px; position: relative; overflow: hidden; box-shadow: var(--shadow-xl), 0 10px 50px var(--accent-glow); }
+        .capstone-card h3 { font-family: var(--font-title); font-size: 1.8rem; font-weight: 800; color: var(--white); margin-bottom: 10px; }
+        .capstone-card > p { color: rgba(255,255,255,0.72); margin-bottom: 28px; max-width: 600px; }
+        .capstone-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .capstone-item { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-md); padding: 18px 20px; display: flex; gap: 12px; align-items: center; }
+        .capstone-item i { color: var(--accent-light); font-size: 1.1rem; }
+        .capstone-item span { font-family: var(--font-mono); font-size: 0.82rem; color: rgba(255,255,255,0.9); }
+
+        /* ===== OUTCOMES / AUDIENCE / PREREQS ===== */
+        .info { background: var(--white); }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+        .info-col h3 { font-family: var(--font-title); font-size: 1.3rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 22px; display: flex; align-items: center; gap: 12px; }
+        .info-col h3 i { color: var(--accent); }
+        .info-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+        .info-list li { display: flex; gap: 12px; font-size: 0.95rem; color: var(--text-medium); line-height: 1.6; }
+        .info-list li i { color: var(--primary-light); margin-top: 5px; font-size: 0.85rem; }
+
+        .prereqs { background: linear-gradient(180deg, var(--white), var(--bg-light)); }
+        .prereqs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 40px; }
+        .prereq-card { background: var(--white); border-radius: var(--radius-lg); padding: 30px 24px; text-align: center; border: 1px solid rgba(15,118,110,0.06); box-shadow: var(--shadow-sm); transition: all 0.3s; }
+        .prereq-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+        .prereq-icon { width: 60px; height: 60px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 18px; background: var(--bg-violet); color: var(--accent); }
+        .prereq-card h4 { font-family: var(--font-title); font-size: 0.98rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 6px; }
+        .prereq-card p { font-size: 0.84rem; color: var(--text-medium); line-height: 1.55; }
+
+        /* ===== CTA ===== */
+        .cta { background: linear-gradient(145deg, #0D1B2A, var(--primary-darkest), #1e1b4b, var(--accent-dark)); position: relative; overflow: hidden; }
+        .cta .orb { opacity: 0.2; }
+        .cta-content { position: relative; z-index: 2; text-align: center; max-width: 700px; margin: 0 auto; }
+        .cta-content h2 { font-family: var(--font-title); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; color: var(--white); line-height: 1.15; margin-bottom: 18px; }
+        .cta-content p { font-size: 1.15rem; color: rgba(255,255,255,0.72); margin-bottom: 36px; }
+
+        /* ===== FOOTER ===== */
+        footer { background: #0a0f1a; color: rgba(255,255,255,0.6); padding: 40px 0; text-align: center; font-size: 0.85rem; }
+        footer strong { color: rgba(255,255,255,0.85); }
+        footer .credit { font-family: var(--font-mono); font-size: 0.75rem; margin-top: 10px; color: rgba(255,255,255,0.4); }
+
+        /* ===== ANATOMY / FOLDER STRUCTURE ===== */
+        .anatomy { background: var(--white); }
+        .anatomy-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px; align-items: start; }
+        .tree-card { background: linear-gradient(145deg, #1e293b, #0f172a); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xl); border: 1px solid rgba(124,58,237,0.15); }
+        .tree-head { display: flex; align-items: center; gap: 8px; padding: 14px 18px; background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .tree-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .tree-dot.r { background: #ef4444; } .tree-dot.y { background: #eab308; } .tree-dot.g { background: #22c55e; }
+        .tree-title { margin-left: 10px; font-family: var(--font-mono); font-size: 0.74rem; color: rgba(255,255,255,0.4); }
+        .tree-body { padding: 22px 24px; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.75; color: #94a3b8; overflow-x: auto; white-space: pre; }
+        .tree-body .dir { color: var(--accent-light); font-weight: 500; }
+        .tree-body .file { color: #e2e8f0; }
+        .tree-body .cmt { color: #64748b; }
+        .tree-body .root { color: #4ade80; font-weight: 600; }
+        .anatomy-side { display: flex; flex-direction: column; gap: 18px; }
+        .snippet { background: var(--bg-light); border: 1px solid rgba(15,118,110,0.08); border-radius: var(--radius-md); padding: 20px 22px; }
+        .snippet-tag { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .snippet pre { font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.6; color: var(--text-dark); white-space: pre-wrap; word-break: break-word; }
+        .snippet .k { color: var(--accent); } .snippet .s { color: var(--primary); } .snippet .c { color: var(--text-light); }
+        .anatomy-note { margin-top: 28px; background: var(--bg-violet); border-left: 3px solid var(--accent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 16px 22px; font-size: 0.92rem; color: var(--text-medium); }
+        .anatomy-note strong { color: var(--accent-dark); }
+        @media (max-width: 980px) { .anatomy-grid { grid-template-columns: 1fr; } }
+
+        /* ===== LAB / STEPS ===== */
+        .lab { background: linear-gradient(180deg, var(--white), var(--bg-light)); }
+        .steps { display: flex; flex-direction: column; gap: 16px; max-width: 940px; margin: 0 auto; }
+        .step { display: grid; grid-template-columns: 52px 1fr; gap: 20px; background: var(--white); border: 1px solid rgba(15,118,110,0.08); border-radius: var(--radius-lg); padding: 24px 26px; box-shadow: var(--shadow-sm); transition: all .3s; }
+        .step:hover { box-shadow: var(--shadow-md); transform: translateX(4px); border-color: rgba(124,58,237,0.18); }
+        .step-num { width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--primary-light)); color: #fff; font-family: var(--font-title); font-weight: 800; font-size: 1.15rem; display: flex; align-items: center; justify-content: center; }
+        .step-body h4 { font-family: var(--font-title); font-size: 1.12rem; color: var(--primary-dark); margin-bottom: 6px; }
+        .step-body > p { font-size: 0.9rem; color: var(--text-medium); margin-bottom: 14px; }
+        .code-line { background: #0f172a; border-radius: var(--radius-sm); padding: 11px 16px; font-family: var(--font-mono); font-size: 0.82rem; color: #e2e8f0; overflow-x: auto; margin-bottom: 8px; white-space: pre-wrap; word-break: break-word; }
+        .code-line .pmt { color: #4ade80; } .code-line .cmt { color: #64748b; }
+        .code-line.is-prompt { background: var(--bg-violet); color: var(--accent-dark); border-left: 3px solid var(--accent); }
+        .say { font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-light); font-style: italic; margin-top: 10px; display: flex; gap: 8px; align-items: flex-start; }
+        .say i { color: var(--orange); margin-top: 3px; }
+        .kbd { display: inline-block; font-family: var(--font-mono); font-size: 0.78rem; background: #1e293b; color: #e2e8f0; padding: 3px 9px; border-radius: 6px; border-bottom: 2px solid #000; margin: 0 2px; }
+
+        /* ===== CHEATSHEET ===== */
+        .cheat { background: var(--white); }
+        .cheat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+        .cheat-card { background: var(--bg-light); border: 1px solid rgba(15,118,110,0.08); border-radius: var(--radius-lg); padding: 26px; transition: all .3s; }
+        .cheat-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+        .cheat-card h4 { font-family: var(--font-title); font-size: 1.05rem; color: var(--primary-dark); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+        .cheat-card h4 i { color: var(--accent); }
+        .cheat-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid rgba(15,118,110,0.07); font-size: 0.85rem; }
+        .cheat-row:last-child { border-bottom: none; }
+        .cheat-row span { color: var(--text-medium); }
+        .cheat-row code { font-family: var(--font-mono); color: var(--accent-dark); font-size: 0.8rem; background: rgba(124,58,237,0.08); padding: 2px 8px; border-radius: 5px; white-space: nowrap; }
+
+        /* ===== PROMPT LIBRARY ===== */
+        .promptlib { background: linear-gradient(180deg, var(--bg-light), var(--white)); }
+        .prompt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .prompt-card { background: linear-gradient(145deg, #0f172a, #1e293b); border-radius: var(--radius-lg); padding: 24px; border: 1px solid rgba(124,58,237,0.15); position: relative; }
+        .prompt-card .ptag { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .prompt-card p { font-family: var(--font-mono); font-size: 0.84rem; color: rgba(255,255,255,0.88); line-height: 1.65; }
+        .prompt-card .hl { color: #4ade80; }
+
+        /* ===== GOTCHAS ===== */
+        .gotchas { background: var(--white); }
+        .gotchas-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .gotcha { background: var(--bg-light); border-radius: var(--radius-lg); padding: 24px 26px; border-left: 4px solid var(--orange); box-shadow: var(--shadow-sm); transition: all .3s; }
+        .gotcha:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+        .gotcha h4 { font-family: var(--font-title); font-size: 1.02rem; color: var(--primary-dark); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .gotcha h4 i { color: var(--orange); }
+        .gotcha p { font-size: 0.88rem; color: var(--text-medium); line-height: 1.6; }
+        .gotcha code { background: var(--white); padding: 2px 7px; border-radius: 5px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-dark); border: 1px solid rgba(124,58,237,0.12); }
+
+        @media (max-width: 980px) {
+            .cheat-grid { grid-template-columns: 1fr; }
+            .prompt-grid, .gotchas-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 560px) {
+            .step { grid-template-columns: 1fr; }
+            .step-num { margin-bottom: 4px; }
+        }
+
+        /* ===== COPY BUTTON ===== */
+        .copyable { position: relative; }
+        .copy-btn {
+            position: absolute; top: 8px; right: 8px;
+            width: 30px; height: 30px; border-radius: 7px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 0.74rem; transition: all .2s;
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); color: #cbd5e1;
+        }
+        .copy-btn:hover { background: rgba(255,255,255,0.18); color: #fff; }
+        .copy-btn.copied { background: rgba(74,222,128,0.2); border-color: rgba(74,222,128,0.35); color: #4ade80; }
+        /* variante para fondos claros (snippets de la anatomía) */
+        .snippet .copy-btn { background: rgba(124,58,237,0.08); border-color: rgba(124,58,237,0.18); color: var(--accent); }
+        .snippet .copy-btn:hover { background: rgba(124,58,237,0.16); color: var(--accent-dark); }
+        .snippet .copy-btn.copied { background: rgba(22,163,74,0.12); border-color: rgba(22,163,74,0.3); color: #16a34a; }
+        .code-line.copyable { padding-right: 46px; }
+        .prompt-card.copyable, .snippet.copyable { padding-top: 22px; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 980px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .topic-cards { grid-template-columns: 1fr; }
+            .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+            .capstone-items { grid-template-columns: 1fr 1fr; }
+            .info-grid { grid-template-columns: 1fr; gap: 36px; }
+            .prereqs-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 560px) {
+            .stats-grid, .pillars-grid, .capstone-items, .prereqs-grid { grid-template-columns: 1fr; }
+            .section { padding: 64px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+        <div class="grid-overlay"></div>
+        <div class="container hero-content">
+            <div class="hero-badge"><span class="pulse"></span> Curso Intensivo · 3 Días · En Vivo</div>
+            <h1>
+                Build with
+                <span class="accent-line">Claude Code.</span>
+            </h1>
+            <p class="hero-desc">
+                De los fundamentos del loop agéntico a la orquestación de agentes en paralelo.
+                Aprende a usar Claude Code como un ingeniero senior: context engineering, skills,
+                MCP, validación automática y los 5 pilares de la ingeniería agéntica.
+            </p>
+            <div class="hero-meta">
+                <div class="hero-meta-item"><i class="fas fa-calendar-day"></i> 3 sesiones online en vivo</div>
+                <div class="hero-meta-item"><i class="fas fa-circle-play"></i> Grabaciones con asistente IA</div>
+                <div class="hero-meta-item"><i class="fas fa-file-pdf"></i> PDF de resumen</div>
+                <div class="hero-meta-item"><i class="fas fa-certificate"></i> Certificado</div>
+            </div>
+            <div class="hero-actions">
+                <a href="#temario" class="btn-primary"><i class="fas fa-rocket"></i> Ver el temario</a>
+                <a href="#laboratorio" class="btn-secondary"><i class="fas fa-flask"></i> Laboratorio paso a paso</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="section stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card"><div class="stat-num">3</div><div class="stat-text">Sesiones online en vivo</div></div>
+                <div class="stat-card"><div class="stat-num">5</div><div class="stat-text">Pilares de ingeniería agéntica</div></div>
+                <div class="stat-card"><div class="stat-num">IA</div><div class="stat-text">Grabaciones con asistente</div></div>
+                <div class="stat-card"><div class="stat-num">PDF</div><div class="stat-text">Resumen y puntos clave</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUÉ INCLUYE -->
+    <section class="section" style="background: var(--bg-light);" id="incluye">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-label center">Qué incluye</div>
+                <h2 class="section-title">Todo lo que te <span class="highlight-accent">llevas</span></h2>
+                <p class="section-subtitle">No es solo asistir: te quedas con todo para repasar a tu ritmo.</p>
+            </div>
+            <div class="topic-cards">
+                <div class="topic-card">
+                    <div class="topic-icon"><i class="fas fa-video"></i></div>
+                    <h4>3 sesiones online en vivo</h4>
+                    <ul>
+                        <li><i class="fas fa-circle"></i> Tres días de clases en directo</li>
+                        <li><i class="fas fa-circle"></i> Feedback en tiempo real del instructor</li>
+                    </ul>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-icon"><i class="fas fa-robot"></i></div>
+                    <h4>Grabaciones con asistente IA</h4>
+                    <ul>
+                        <li><i class="fas fa-circle"></i> Repasa cada sesión cuando quieras</li>
+                        <li><i class="fas fa-circle"></i> Pregúntale al asistente IA sobre el contenido</li>
+                    </ul>
+                </div>
+                <div class="topic-card">
+                    <div class="topic-icon"><i class="fas fa-file-pdf"></i></div>
+                    <h4>PDF con resumen y puntos clave</h4>
+                    <ul>
+                        <li><i class="fas fa-circle"></i> Documento con el resumen de cada sesión</li>
+                        <li><i class="fas fa-circle"></i> Los puntos principales para consulta rápida</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CURRICULUM -->
+    <section class="section sessions" id="temario">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-label center">Temario</div>
+                <h2 class="section-title">Tres días. <span class="highlight-accent">De fundamentos a producción.</span></h2>
+                <p class="section-subtitle">Tres sesiones online en vivo que combinan teoría con asignaciones prácticas autoguiadas. Construyes mientras aprendes — y te quedas con las grabaciones (con asistente IA) y un PDF de resumen.</p>
+            </div>
+
+            <!-- SESSION 1 -->
+            <div class="session-block">
+                <div class="session-head">
+                    <span class="session-tag">SESIÓN 01</span>
+                    <h3>Fundamentos de Claude Code</h3>
+                    <span class="session-live"><i class="fas fa-circle"></i> En vivo</span>
+                </div>
+                <div class="topic-cards">
+                    <div class="topic-card">
+                        <div class="topic-icon"><i class="fas fa-terminal"></i></div>
+                        <h4>Claude Code Basics</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> El loop agéntico: gather → act → verify</li>
+                            <li><i class="fas fa-circle"></i> Instalación y sesión interactiva</li>
+                            <li><i class="fas fa-circle"></i> Slash commands y atajos de teclado</li>
+                            <li><i class="fas fa-circle"></i> Permisos: Default, acceptEdits, plan, dontAsk, bypass</li>
+                        </ul>
+                    </div>
+                    <div class="topic-card">
+                        <div class="topic-icon"><i class="fas fa-brain"></i></div>
+                        <h4>Context Engineering</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> La ventana de contexto como memoria finita</li>
+                            <li><i class="fas fa-circle"></i> Principio "fresh and condensed"</li>
+                            <li><i class="fas fa-circle"></i> Capas de memoria: CLAUDE.md, Second Brain, Auto Memory</li>
+                            <li><i class="fas fa-circle"></i> Técnicas de lazy loading</li>
+                        </ul>
+                    </div>
+                    <div class="topic-card">
+                        <div class="topic-icon"><i class="fas fa-wand-magic-sparkles"></i></div>
+                        <h4>Automatización con Skills</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> Skills como flujos reutilizables</li>
+                            <li><i class="fas fa-circle"></i> Anatomía y creación de SKILL.md</li>
+                            <li><i class="fas fa-circle"></i> Skills integradas vs. personalizadas</li>
+                            <li><i class="fas fa-circle"></i> Composición y encadenamiento de skills</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="assignment">
+                    <div class="assignment-label"><i class="fas fa-dumbbell"></i> Asignaciones (autoguiadas)</div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Onboarding a un codebase nuevo usando plan mode</li>
+                        <li><i class="fas fa-check"></i> Construir e inicializar un CLAUDE.md con patrones canónicos</li>
+                        <li><i class="fas fa-check"></i> Crear una skill reutilizable a partir de un flujo real (ej: triage de logs)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SESSION 2 -->
+            <div class="session-block">
+                <div class="session-head">
+                    <span class="session-tag">SESIÓN 02</span>
+                    <h3>Escalando con MCPs, Agentes en Paralelo e Ingeniería Agéntica</h3>
+                    <span class="session-live"><i class="fas fa-circle"></i> En vivo</span>
+                </div>
+                <div class="topic-cards">
+                    <div class="topic-card">
+                        <div class="topic-icon"><i class="fas fa-plug"></i></div>
+                        <h4>MCPs, CLIs y Tooling Agéntico</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> Instalación y uso de Model Context Protocol</li>
+                            <li><i class="fas fa-circle"></i> Cuándo NO usar MCP (costo de tokens, ruido)</li>
+                            <li><i class="fas fa-circle"></i> Automatización de navegador con /chrome</li>
+                            <li><i class="fas fa-circle"></i> Cadenas auto-correctivas y ciclo de hooks</li>
+                        </ul>
+                    </div>
+                    <div class="topic-card">
+                        <div class="topic-icon"><i class="fas fa-code-branch"></i></div>
+                        <h4>Desarrollo en Paralelo y Validación</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> Git worktrees para aislamiento seguro</li>
+                            <li><i class="fas fa-circle"></i> Workflows multi-agente</li>
+                            <li><i class="fas fa-circle"></i> Subagentes vs. Agent Teams</li>
+                            <li><i class="fas fa-circle"></i> Testing de regresión visual automatizado</li>
+                        </ul>
+                    </div>
+                    <div class="topic-card">
+                        <div class="topic-icon"><i class="fas fa-layer-group"></i></div>
+                        <h4>Los 5 Pilares de la Ingeniería Agéntica</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> Retos de escalamiento y soluciones</li>
+                            <li><i class="fas fa-circle"></i> Manejo de context bloat y skill explosion</li>
+                            <li><i class="fas fa-circle"></i> Compound engineering</li>
+                            <li><i class="fas fa-circle"></i> Auditoría de codebase AI-ready</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="assignment">
+                    <div class="assignment-label"><i class="fas fa-dumbbell"></i> Asignaciones (autoguiadas)</div>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Conectar Claude a sistemas externos vía servidores MCP</li>
+                        <li><i class="fas fa-check"></i> Construir una app full-stack en paralelo entre múltiples agentes</li>
+                        <li><i class="fas fa-check"></i> Completar el proyecto capstone (repo propio o PRDs de inicio)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SESSION 3 -->
+            <div class="session-block">
+                <div class="session-head">
+                    <span class="session-tag" style="background:linear-gradient(135deg,var(--orange),var(--orange-light));">SESIÓN 03</span>
+                    <h3>Office Hour · Q&amp;A en vivo y revisión de proyectos</h3>
+                    <span class="session-live"><i class="fas fa-circle"></i> En vivo</span>
+                </div>
+                <div class="topic-cards">
+                    <div class="topic-card">
+                        <div class="topic-icon"><i class="fas fa-comments"></i></div>
+                        <h4>Preguntas y respuestas</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> Resolvemos dudas reales de los participantes</li>
+                            <li><i class="fas fa-circle"></i> Casos de uso y bloqueos en vivo</li>
+                        </ul>
+                    </div>
+                    <div class="topic-card">
+                        <div class="topic-icon"><i class="fas fa-clipboard-check"></i></div>
+                        <h4>Revisión del capstone</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> Feedback sobre tu proyecto final</li>
+                            <li><i class="fas fa-circle"></i> Mejores prácticas aplicadas a tu repo</li>
+                        </ul>
+                    </div>
+                    <div class="topic-card">
+                        <div class="topic-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h4>Cierre y siguientes pasos</h4>
+                        <ul>
+                            <li><i class="fas fa-circle"></i> Entrega del PDF de resumen y puntos clave</li>
+                            <li><i class="fas fa-circle"></i> Cómo seguir practicando con tu asistente IA</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PILLARS -->
+    <section class="section pillars" id="pilares">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-label center">El núcleo</div>
+                <h2 class="section-title">Los 5 pilares de la <span class="highlight-accent">ingeniería agéntica</span></h2>
+                <p class="section-subtitle">El marco mental que separa a quien usa la IA de quien la domina a escala.</p>
+            </div>
+            <div class="pillars-grid">
+                <div class="pillar-card"><div class="pillar-num">1</div><h4>Manejo del context bloat</h4></div>
+                <div class="pillar-card"><div class="pillar-num">2</div><h4>Control del skill explosion</h4></div>
+                <div class="pillar-card"><div class="pillar-num">3</div><h4>Compound engineering</h4></div>
+                <div class="pillar-card"><div class="pillar-num">4</div><h4>Auditoría AI-ready del codebase</h4></div>
+                <div class="pillar-card"><div class="pillar-num">5</div><h4>Eliminar fricción con buen harness</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CAPSTONE -->
+    <section class="section capstone">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Proyecto final</div>
+                <h2 class="section-title">El Capstone</h2>
+            </div>
+            <div class="capstone-card">
+                <h3>Una app full-stack, construida como un equipo de agentes</h3>
+                <p>Eliges tu propio repo o partes de un PRD provisto. El entregable reúne todo lo aprendido en una base de código lista para producción.</p>
+                <div class="capstone-items">
+                    <div class="capstone-item"><i class="fas fa-file-code"></i><span>CLAUDE.md con specs del stack</span></div>
+                    <div class="capstone-item"><i class="fas fa-folder-tree"></i><span>.claude/rules/ configurado</span></div>
+                    <div class="capstone-item"><i class="fas fa-book"></i><span>Second Brain (docs)</span></div>
+                    <div class="capstone-item"><i class="fas fa-vials"></i><span>Harness de validación: tests + linting</span></div>
+                    <div class="capstone-item"><i class="fas fa-plug"></i><span>MCPs + 2–3 skills reutilizables</span></div>
+                    <div class="capstone-item"><i class="fas fa-users-gear"></i><span>Roles de un Agent Team</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ANATOMY / FOLDER STRUCTURE -->
+    <section class="section anatomy" id="estructura">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-label center">Manos a la obra</div>
+                <h2 class="section-title">La anatomía de un proyecto <span class="highlight-accent">Claude-ready</span></h2>
+                <p class="section-subtitle">Así se ve un repo bien configurado: memoria, reglas, agentes y skills. Esta es la plantilla que construimos en vivo.</p>
+            </div>
+
+            <div class="anatomy-grid">
+                <div class="tree-card">
+                    <div class="tree-head">
+                        <span class="tree-dot r"></span><span class="tree-dot y"></span><span class="tree-dot g"></span>
+                        <span class="tree-title">claude-code-starter/</span>
+                    </div>
+                    <div class="tree-body"><span class="root">claude-code-starter/</span>
+├── <span class="file">CLAUDE.md</span>              <span class="cmt"># memoria del proyecto</span>
+├── <span class="file">README.md</span>
+├── <span class="dir">.claude/</span>
+│   ├── <span class="file">settings.json</span>      <span class="cmt"># permisos + hooks</span>
+│   ├── <span class="dir">agents/</span>           <span class="cmt"># subagentes</span>
+│   │   ├── <span class="file">code-reviewer.md</span>
+│   │   ├── <span class="file">test-writer.md</span>
+│   │   └── <span class="file">explorer.md</span>
+│   ├── <span class="dir">skills/</span>           <span class="cmt"># flujos reutilizables</span>
+│   │   ├── <span class="file">new-component/</span>SKILL.md
+│   │   ├── <span class="file">log-triage/</span>SKILL.md
+│   │   └── <span class="file">pr-description/</span>SKILL.md
+│   └── <span class="dir">rules/</span>            <span class="cmt"># reglas siempre activas</span>
+│       ├── <span class="file">coding-style.md</span>
+│       ├── <span class="file">testing.md</span>
+│       └── <span class="file">security.md</span>
+└── <span class="dir">docs/</span>                <span class="cmt"># "Second Brain"</span>
+    ├── <span class="file">architecture.md</span>
+    └── <span class="file">decisions.md</span></div>
+                </div>
+
+                <div class="anatomy-side">
+                    <div class="snippet">
+                        <div class="snippet-tag"><i class="fas fa-robot"></i> .claude/agents/code-reviewer.md</div>
+<pre><span class="c">---</span>
+<span class="k">name:</span> <span class="s">code-reviewer</span>
+<span class="k">description:</span> Revisa diffs antes del
+  commit (bugs, seguridad, reglas).
+<span class="k">tools:</span> Read, Grep, Glob, Bash
+<span class="c">---</span>
+Eres un revisor senior. Reporta solo
+hallazgos accionables por severidad...</pre>
+                    </div>
+                    <div class="snippet">
+                        <div class="snippet-tag"><i class="fas fa-wand-magic-sparkles"></i> .claude/skills/new-component/SKILL.md</div>
+<pre><span class="c">---</span>
+<span class="k">name:</span> <span class="s">new-component</span>
+<span class="k">description:</span> Crea un componente React
+  con las convenciones del repo.
+<span class="c">---</span>
+1. Ubícalo en web/src/components/...
+2. Archivos: .tsx, .test.tsx, index.ts
+3. Props tipadas, CSS modules, test base</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="anatomy-note">
+                💡 <strong>La regla de oro:</strong> &nbsp;<strong>CLAUDE.md</strong> = QUÉ y bajo qué reglas &nbsp;·&nbsp; <strong>Skills</strong> = CÓMO repetir un flujo &nbsp;·&nbsp; <strong>Agents</strong> = QUIÉN hace una tarea aislada.
+            </div>
+        </div>
+    </section>
+
+    <!-- LAB: PASO A PASO EN VIVO -->
+    <section class="section lab" id="laboratorio">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-label center">Laboratorio en vivo</div>
+                <h2 class="section-title">El paso a paso que <span class="highlight-accent">ejecutamos juntos</span></h2>
+                <p class="section-subtitle">De carpeta vacía a una app con base de datos real conectada. Sigue cada paso en tu propia máquina — copia y pega los comandos.</p>
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-body">
+                        <h4>Crear el proyecto</h4>
+                        <p>Una carpeta limpia con control de versiones desde el minuto cero.</p>
+                        <div class="code-line"><span class="pmt">PS&gt;</span> mkdir mi-app  <span class="cmt"># o usa el proyecto de muestra</span>
+<span class="pmt">PS&gt;</span> cd mi-app
+<span class="pmt">PS&gt;</span> git init</div>
+                        <div class="say"><i class="fas fa-comment"></i> "Empezamos como cualquier proyecto serio: carpeta + git."</div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-body">
+                        <h4>Lanzar Claude Code</h4>
+                        <p>Entra el copiloto. Lo primero NO es codear — es darle memoria.</p>
+                        <div class="code-line"><span class="pmt">PS&gt;</span> claude</div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-body">
+                        <h4>Darle memoria: el CLAUDE.md</h4>
+                        <p>Genera el archivo que Claude leerá en cada sesión con el stack y las reglas.</p>
+                        <div class="code-line is-prompt">/init</div>
+                        <div class="code-line is-prompt">Lee el CLAUDE.md y las reglas en .claude/rules/. Resúmeme en 5 líneas qué es este proyecto, el stack y bajo qué reglas vas a trabajar.</div>
+                        <div class="say"><i class="fas fa-comment"></i> "El CLAUDE.md separa a quien usa la IA de quien la domina."</div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <div class="step-body">
+                        <h4>Crear una Skill y un Agente</h4>
+                        <p>Empaqueta un flujo repetible y un especialista que revise tu código.</p>
+                        <div class="code-line is-prompt">Crea la skill .claude/skills/new-component/SKILL.md que cree componentes con mis convenciones. Y un agente .claude/agents/code-reviewer.md que revise el diff antes del commit.</div>
+                        <div class="say"><i class="fas fa-comment"></i> "Skills = CÓMO repetir un flujo. Agents = QUIÉN hace una tarea aislada."</div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-num">5</div>
+                    <div class="step-body">
+                        <h4>Plan Mode antes de codear</h4>
+                        <p>Presiona <span class="kbd">Shift + Tab</span> hasta ver <strong>"plan mode on"</strong>. Pide el plan, no el código.</p>
+                        <div class="code-line is-prompt">ultrathink: planifica la primera feature. No escribas código todavía, muéstrame el plan.</div>
+                        <div class="say"><i class="fas fa-comment"></i> "Primero el plan, lo reviso, y recién ahí construye. Nunca al revés."</div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-num">6</div>
+                    <div class="step-body">
+                        <h4>Construir usando la Skill</h4>
+                        <p>Aprueba el plan, activa <span class="kbd">Shift + Tab</span> → <strong>"accept edits on"</strong> para no frenar.</p>
+                        <div class="code-line is-prompt">Perfecto, impleméntalo siguiendo las reglas. Usa la skill new-component para la UI. Tests primero.</div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-num">7</div>
+                    <div class="step-body">
+                        <h4>Conectar PostgreSQL (.env)</h4>
+                        <p>La contraseña va en <code style="font-family:var(--font-mono);font-size:.82rem;">.env</code> (protegido por <code style="font-family:var(--font-mono);font-size:.82rem;">.gitignore</code>), nunca en el repo.</p>
+                        <div class="code-line"><span class="cmt"># archivo .env</span>
+DATABASE_URL="postgresql://postgres:123@127.0.0.1:5432/taskflow?schema=public"</div>
+                        <div class="code-line"><span class="pmt">PS&gt;</span> npx prisma migrate dev --name init</div>
+                        <div class="say"><i class="fas fa-triangle-exclamation"></i> En Windows usa <strong>127.0.0.1</strong>, no <strong>localhost</strong> (IPv6 a veces no engancha).</div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-num">8</div>
+                    <div class="step-body">
+                        <h4>Ver la base de datos en vivo</h4>
+                        <p>Una UI en el navegador con tus tablas reales. Puedes agregar registros en vivo.</p>
+                        <div class="code-line"><span class="pmt">PS&gt;</span> npx prisma studio  <span class="cmt"># abre http://localhost:5555</span></div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-num">9</div>
+                    <div class="step-body">
+                        <h4>Correr la aplicación</h4>
+                        <div class="code-line"><span class="pmt">PS&gt;</span> npm run dev  <span class="cmt"># API :3000 · Web :5173</span></div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-num">10</div>
+                    <div class="step-body">
+                        <h4>Revisar con el Agente y cerrar el PR</h4>
+                        <p>El agente revisa con contexto fresco; cierras con un PR profesional.</p>
+                        <div class="code-line is-prompt">Usa el agente code-reviewer para revisar todos los cambios. Reporta por severidad.</div>
+                        <div class="code-line is-prompt">Haz un commit pequeño y redacta el PR usando la skill pr-description.</div>
+                        <div class="say"><i class="fas fa-comment"></i> "De cero a app con base de datos real, conectada y revisada."</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHEATSHEET -->
+    <section class="section cheat" id="comandos">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-label center">Referencia rápida</div>
+                <h2 class="section-title">Comandos y atajos <span class="highlight-accent">esenciales</span></h2>
+                <p class="section-subtitle">Lo mínimo que debes tener en la cabeza para moverte rápido en Claude Code.</p>
+            </div>
+            <div class="cheat-grid">
+                <div class="cheat-card">
+                    <h4><i class="fas fa-terminal"></i> Slash commands</h4>
+                    <div class="cheat-row"><span>Crear / inicializar CLAUDE.md</span><code>/init</code></div>
+                    <div class="cheat-row"><span>Limpiar el contexto</span><code>/clear</code></div>
+                    <div class="cheat-row"><span>Gestionar subagentes</span><code>/agents</code></div>
+                    <div class="cheat-row"><span>Ver toda la ayuda</span><code>/help</code></div>
+                    <div class="cheat-row"><span>Configuración</span><code>/config</code></div>
+                </div>
+                <div class="cheat-card">
+                    <h4><i class="fas fa-keyboard"></i> Atajos de teclado</h4>
+                    <div class="cheat-row"><span>Cambiar de modo</span><code>Shift + Tab</code></div>
+                    <div class="cheat-row"><span>Interrumpir a Claude</span><code>Esc</code></div>
+                    <div class="cheat-row"><span>Guardar en memoria</span><code># …</code></div>
+                    <div class="cheat-row"><span>Ejecutar un comando bash</span><code>! …</code></div>
+                    <div class="cheat-row"><span>Terminal en VS Code</span><code>Ctrl + ñ</code></div>
+                </div>
+                <div class="cheat-card">
+                    <h4><i class="fas fa-shield-halved"></i> Modos de permiso</h4>
+                    <div class="cheat-row"><span>Pregunta por cada acción</span><code>Default</code></div>
+                    <div class="cheat-row"><span>Aplica ediciones sin frenar</span><code>acceptEdits</code></div>
+                    <div class="cheat-row"><span>Solo planifica, no ejecuta</span><code>plan</code></div>
+                    <div class="cheat-row"><span>Modo sin restricciones</span><code>bypass</code></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROMPT LIBRARY -->
+    <section class="section promptlib" id="prompts">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-label center">Biblioteca de prompts</div>
+                <h2 class="section-title">Los prompts que <span class="highlight-accent">usamos hoy</span></h2>
+                <p class="section-subtitle">Copia, pega y adapta. Buenos prompts = buenos resultados.</p>
+            </div>
+            <div class="prompt-grid">
+                <div class="prompt-card">
+                    <div class="ptag"><i class="fas fa-magnifying-glass"></i> Entender el proyecto</div>
+                    <p><span class="hl">&gt;</span> Lee el CLAUDE.md y las reglas. Resúmeme el stack y bajo qué reglas trabajas. Luego dibújame el flujo de un dato de punta a punta.</p>
+                </div>
+                <div class="prompt-card">
+                    <div class="ptag"><i class="fas fa-diagram-project"></i> Planificar (Plan Mode)</div>
+                    <p><span class="hl">&gt;</span> ultrathink: planifica la feature X. No escribas código todavía, muéstrame el plan con archivos a tocar y riesgos.</p>
+                </div>
+                <div class="prompt-card">
+                    <div class="ptag"><i class="fas fa-wand-magic-sparkles"></i> Construir con una Skill</div>
+                    <p><span class="hl">&gt;</span> Impleméntalo siguiendo las reglas. Usa la skill new-component para crear el componente. Tests primero.</p>
+                </div>
+                <div class="prompt-card">
+                    <div class="ptag"><i class="fas fa-bug"></i> Triage de un bug</div>
+                    <p><span class="hl">&gt;</span> Bug: [describe]. Traza la causa desde el stack trace, propón el fix mínimo y escribe un test de regresión. Plan primero.</p>
+                </div>
+                <div class="prompt-card">
+                    <div class="ptag"><i class="fas fa-database"></i> Conectar la base de datos</div>
+                    <p><span class="hl">&gt;</span> Crea un .env (y agrégalo a .gitignore) con DATABASE_URL. Configura Prisma, genera la migración inicial y corre prisma migrate dev.</p>
+                </div>
+                <div class="prompt-card">
+                    <div class="ptag"><i class="fas fa-clipboard-check"></i> Revisar y cerrar el PR</div>
+                    <p><span class="hl">&gt;</span> Usa el agente code-reviewer para revisar el diff por severidad. Luego haz commits pequeños y el PR con la skill pr-description.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GOTCHAS -->
+    <section class="section gotchas" id="trucos">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-label center">Trucos y errores comunes</div>
+                <h2 class="section-title">Lo que <span class="highlight-orange">aprendimos a la fuerza</span></h2>
+                <p class="section-subtitle">Los detalles que ahorran horas y evitan sustos en vivo.</p>
+            </div>
+            <div class="gotchas-grid">
+                <div class="gotcha">
+                    <h4><i class="fas fa-triangle-exclamation"></i> localhost vs 127.0.0.1 (Windows)</h4>
+                    <p>Si la base "no responde" aunque el servicio corra, usa <code>127.0.0.1</code> en vez de <code>localhost</code>: en Windows, <code>localhost</code> resuelve a IPv6 y muchos clientes no enganchan.</p>
+                </div>
+                <div class="gotcha">
+                    <h4><i class="fas fa-lock"></i> Nunca secretos en el repo</h4>
+                    <p>La contraseña vive solo en <code>.env</code>, y <code>.env</code> va en <code>.gitignore</code>. Comparte un <code>.env.example</code> sin la clave real.</p>
+                </div>
+                <div class="gotcha">
+                    <h4><i class="fas fa-gauge-high"></i> Activa "accept edits"</h4>
+                    <p>Para no aprobar cada cambio en vivo, <span class="kbd">Shift + Tab</span> hasta <code>accept edits on</code>. Pero revisa siempre el diff antes del commit.</p>
+                </div>
+                <div class="gotcha">
+                    <h4><i class="fas fa-broom"></i> Higiene de contexto</h4>
+                    <p>Entre tareas distintas usa <code>/clear</code>. El contexto es memoria finita: fresco y condensado rinde mejor que largo y contaminado.</p>
+                </div>
+                <div class="gotcha">
+                    <h4><i class="fas fa-map"></i> Plan antes de código</h4>
+                    <p>Para cualquier cambio que toque más de un archivo, pide el plan primero (<span class="kbd">Shift + Tab</span> → plan). Corriges el rumbo antes de gastar tokens.</p>
+                </div>
+                <div class="gotcha">
+                    <h4><i class="fas fa-plug-circle-xmark"></i> No abuses de los MCP</h4>
+                    <p>Cada MCP cuesta tokens y ruido. Conéctalos solo cuando aportan; a veces un CLI directo es más limpio que un servidor MCP.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INFO: OUTCOMES + AUDIENCE -->
+    <section class="section info">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-col">
+                    <h3><i class="fas fa-graduation-cap"></i> Lo que vas a lograr</h3>
+                    <ul class="info-list">
+                        <li><i class="fas fa-check"></i> Dominar los fundamentos y workflows interactivos de Claude Code</li>
+                        <li><i class="fas fa-check"></i> Aplicar context engineering y manejo de memoria</li>
+                        <li><i class="fas fa-check"></i> Desarrollar skills de automatización reutilizables</li>
+                        <li><i class="fas fa-check"></i> Conectar Claude a sistemas externos vía MCP</li>
+                        <li><i class="fas fa-check"></i> Ejecutar desarrollo en paralelo entre múltiples agentes</li>
+                        <li><i class="fas fa-check"></i> Implementar validación y auto-corrección de nivel producción</li>
+                        <li><i class="fas fa-check"></i> Diseñar y desplegar apps full-stack de punta a punta</li>
+                    </ul>
+                </div>
+                <div class="info-col">
+                    <h3><i class="fas fa-users"></i> ¿Para quién es?</h3>
+                    <ul class="info-list">
+                        <li><i class="fas fa-check"></i> Desarrolladores nuevos en Claude Code que buscan base sólida</li>
+                        <li><i class="fas fa-check"></i> Usuarios con experiencia que quieren técnicas avanzadas</li>
+                        <li><i class="fas fa-check"></i> Ingenieros que persiguen el dominio de patrones multi-agente</li>
+                        <li><i class="fas fa-check"></i> Devs enfocados en enviar apps de nivel producción</li>
+                        <li><i class="fas fa-check"></i> Autodidactas que buscan guía estructurada y comunidad</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PREREQS -->
+    <section class="section prereqs">
+        <div class="container">
+            <div class="section-header center">
+                <div class="section-label center">Antes de empezar</div>
+                <h2 class="section-title">Requisitos</h2>
+            </div>
+            <div class="prereqs-grid">
+                <div class="prereq-card">
+                    <div class="prereq-icon"><i class="fas fa-crown"></i></div>
+                    <h4>Suscripción Claude</h4>
+                    <p>Plan de pago activo (Pro o superior).</p>
+                </div>
+                <div class="prereq-card">
+                    <div class="prereq-icon"><i class="fas fa-terminal"></i></div>
+                    <h4>Línea de comandos</h4>
+                    <p>Comodidad operando en la terminal.</p>
+                </div>
+                <div class="prereq-card">
+                    <div class="prereq-icon"><i class="fab fa-git-alt"></i></div>
+                    <h4>Git básico</h4>
+                    <p>Competencia básica con control de versiones.</p>
+                </div>
+                <div class="prereq-card">
+                    <div class="prereq-icon"><i class="fas fa-code"></i></div>
+                    <h4>Programación</h4>
+                    <p>Leer y escribir código en al menos un lenguaje.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section cta">
+        <div class="hero-bg"><div class="orb orb-1"></div><div class="orb orb-2"></div></div>
+        <div class="container cta-content">
+            <h2>Tu primer día como ingeniero agéntico empieza aquí.</h2>
+            <p>Sesiones en vivo, acceso de por vida a grabaciones y recursos, comunidad de pares y certificado de finalización.</p>
+            <a href="#temario" class="btn-primary"><i class="fas fa-rocket"></i> Empezar el curso</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Material de curso preparado por <strong>PeopleWorks</strong> · Pedro Hernández</p>
+            <p class="credit">Temario basado en "Build with Claude Code" — ByteByteGo (John Kim, Staff SWE @ Meta)</p>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            // Copia robusta: usa la API moderna y cae a execCommand si estamos en file://
+            function copyText(text) {
+                if (navigator.clipboard && window.isSecureContext) {
+                    return navigator.clipboard.writeText(text);
+                }
+                return new Promise(function (resolve, reject) {
+                    var ta = document.createElement('textarea');
+                    ta.value = text;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    try { document.execCommand('copy'); resolve(); }
+                    catch (e) { reject(e); }
+                    finally { document.body.removeChild(ta); }
+                });
+            }
+
+            function addCopy(host, getText) {
+                host.classList.add('copyable');
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'copy-btn';
+                btn.setAttribute('aria-label', 'Copiar');
+                btn.innerHTML = '<i class="fas fa-copy"></i>';
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    copyText(getText().trim()).then(function () {
+                        btn.classList.add('copied');
+                        btn.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(function () {
+                            btn.classList.remove('copied');
+                            btn.innerHTML = '<i class="fas fa-copy"></i>';
+                        }, 1500);
+                    });
+                });
+                host.appendChild(btn);
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Comandos del laboratorio (quita el prompt "PS>")
+                document.querySelectorAll('.code-line').forEach(function (el) {
+                    addCopy(el, function () {
+                        return el.innerText.replace(/PS>\s?/g, '');
+                    });
+                });
+                // Prompts (quita el ">" inicial)
+                document.querySelectorAll('.prompt-card').forEach(function (el) {
+                    var p = el.querySelector('p');
+                    if (p) addCopy(el, function () { return p.innerText.replace(/^>\s*/, ''); });
+                });
+                // Snippets de la anatomía
+                document.querySelectorAll('.snippet').forEach(function (el) {
+                    var pre = el.querySelector('pre');
+                    if (pre) addCopy(el, function () { return pre.innerText; });
+                });
+            });
+        })();
+    </script>
+
+</body>
+</html>
