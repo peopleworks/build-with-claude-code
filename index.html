@@ -674,17 +674,90 @@
                 <h2 class="section-title">El Capstone</h2>
             </div>
             <div class="capstone-card">
-                <h3>Una app full-stack, construida como un equipo de agentes</h3>
-                <p>Eliges tu propio repo o partes de un PRD provisto. El entregable reúne todo lo aprendido en una base de código lista para producción.</p>
+                <h3>El capstone de hoy: un mini-Teams en tiempo real</h3>
+                <p>De una carpeta vacía a un chat estilo Teams en 2 horas — mensajes al instante con <strong>SignalR</strong>, presencia, "escribiendo…" e historial en <strong>SQLite</strong> (sin configurar ninguna base de datos). Y al final, todo un equipo de <strong>agentes con guion</strong> lo llena de vida.</p>
                 <div class="capstone-items">
-                    <div class="capstone-item"><i class="fas fa-file-code"></i><span>CLAUDE.md con specs del stack</span></div>
-                    <div class="capstone-item"><i class="fas fa-folder-tree"></i><span>.claude/rules/ configurado</span></div>
-                    <div class="capstone-item"><i class="fas fa-book"></i><span>Second Brain (docs)</span></div>
-                    <div class="capstone-item"><i class="fas fa-vials"></i><span>Harness de validación: tests + linting</span></div>
-                    <div class="capstone-item"><i class="fas fa-plug"></i><span>MCPs + 2–3 skills reutilizables</span></div>
-                    <div class="capstone-item"><i class="fas fa-users-gear"></i><span>Roles de un Agent Team</span></div>
+                    <div class="capstone-item"><i class="fas fa-bolt"></i><span>ASP.NET Core + SignalR (tiempo real)</span></div>
+                    <div class="capstone-item"><i class="fas fa-desktop"></i><span>Cliente web estilo Teams</span></div>
+                    <div class="capstone-item"><i class="fas fa-database"></i><span>Historial con SQLite (cero config)</span></div>
+                    <div class="capstone-item"><i class="fas fa-circle-dot"></i><span>Presencia + "escribiendo…"</span></div>
+                    <div class="capstone-item"><i class="fas fa-robot"></i><span>Agentes con guion (multi-cliente)</span></div>
+                    <div class="capstone-item"><i class="fas fa-globe"></i><span>Publicado por URL (IIS)</span></div>
                 </div>
             </div>
+
+            <figure class="figure">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" role="img" aria-label="Maqueta del mini-Teams: barra lateral con el canal general y usuarios en línea, burbujas de chat en tiempo real, indicador de escribiendo y caja de mensaje" font-family="'Manrope','Segoe UI',system-ui,sans-serif">
+                    <title>El mini-Teams que construyes en vivo</title>
+                    <defs>
+                        <clipPath id="twwin"><rect x="16" y="16" width="728" height="398" rx="16"/></clipPath>
+                    </defs>
+                    <g clip-path="url(#twwin)">
+                        <rect x="16" y="16" width="728" height="398" fill="#ffffff"/>
+                        <!-- Sidebar -->
+                        <rect x="16" y="16" width="196" height="398" fill="#4c1d95"/>
+                        <text x="34" y="50" font-size="15" font-weight="800" fill="#ffffff">💬 MiniTeams</text>
+                        <line x1="28" y1="64" x2="200" y2="64" stroke="#ffffff" stroke-opacity="0.14"/>
+                        <text x="34" y="88" font-size="10" letter-spacing="2" font-weight="700" fill="#c4b5fd">CANALES</text>
+                        <rect x="26" y="96" width="172" height="28" rx="8" fill="#ffffff" fill-opacity="0.16"/>
+                        <text x="40" y="114" font-size="13" font-weight="700" fill="#ffffff"># general</text>
+                        <text x="34" y="154" font-size="10" letter-spacing="2" font-weight="700" fill="#c4b5fd">EN LÍNEA · 4</text>
+                        <!-- usuarios -->
+                        <g font-weight="800" font-size="12" text-anchor="middle">
+                            <circle cx="44" cy="176" r="13" fill="#f59e0b"/><text x="44" y="180" fill="#fff">A</text>
+                            <circle cx="53" cy="185" r="4" fill="#22c55e" stroke="#4c1d95" stroke-width="2"/>
+                            <circle cx="44" cy="216" r="13" fill="#14b8a6"/><text x="44" y="220" fill="#fff">L</text>
+                            <circle cx="53" cy="225" r="4" fill="#22c55e" stroke="#4c1d95" stroke-width="2"/>
+                            <circle cx="44" cy="256" r="13" fill="#ec4899"/><text x="44" y="260" fill="#fff">M</text>
+                            <circle cx="53" cy="265" r="4" fill="#22c55e" stroke="#4c1d95" stroke-width="2"/>
+                            <circle cx="44" cy="296" r="13" fill="#6d28d9"/><text x="44" y="301" font-size="14">🤖</text>
+                            <circle cx="53" cy="305" r="4" fill="#22c55e" stroke="#4c1d95" stroke-width="2"/>
+                        </g>
+                        <g font-size="12.5" fill="#ede9fe" font-weight="600">
+                            <text x="66" y="180">Ana Torres</text>
+                            <text x="66" y="220">Luis Peña</text>
+                            <text x="66" y="260">María Gómez</text>
+                            <text x="66" y="300">Bot IA</text>
+                        </g>
+                        <!-- Header del canal -->
+                        <text x="232" y="48" font-size="16" font-weight="800" fill="#1a1a2e"># general</text>
+                        <text x="322" y="48" font-size="12" fill="#94a3b8">· 4 en línea</text>
+                        <rect x="608" y="34" width="122" height="24" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="1"/>
+                        <circle cx="624" cy="46" r="4" fill="#10b981"/>
+                        <text x="634" y="50" font-size="11" font-weight="700" fill="#047857">tiempo real</text>
+                        <line x1="212" y1="68" x2="744" y2="68" stroke="#eef2f7" stroke-width="1.5"/>
+                        <!-- Mensajes -->
+                        <!-- Ana -->
+                        <circle cx="232" cy="100" r="13" fill="#f59e0b"/><text x="232" y="104" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">A</text>
+                        <text x="254" y="92" font-size="11" font-weight="700" fill="#475569">Ana Torres</text>
+                        <rect x="254" y="98" width="250" height="32" rx="12" fill="#f1f5f9"/>
+                        <text x="268" y="118" font-size="12.5" fill="#1e293b">¡Buenas equipo! 👀</text>
+                        <!-- Luis -->
+                        <circle cx="232" cy="152" r="13" fill="#14b8a6"/><text x="232" y="156" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">L</text>
+                        <text x="254" y="144" font-size="11" font-weight="700" fill="#475569">Luis Peña</text>
+                        <rect x="254" y="150" width="286" height="32" rx="12" fill="#f1f5f9"/>
+                        <text x="268" y="170" font-size="12.5" fill="#1e293b">con .NET + SignalR, en tiempo real 😄</text>
+                        <!-- Tú (derecha) -->
+                        <text x="726" y="196" font-size="11" font-weight="700" fill="#7c3aed" text-anchor="end">Tú</text>
+                        <rect x="472" y="202" width="254" height="32" rx="12" fill="#7c3aed"/>
+                        <text x="712" y="222" font-size="12.5" fill="#ffffff" text-anchor="end">¡Hola! me uno al canal 👋</text>
+                        <!-- Bot IA -->
+                        <circle cx="232" cy="256" r="13" fill="#6d28d9"/><text x="232" y="261" font-size="14" text-anchor="middle">🤖</text>
+                        <text x="254" y="248" font-size="11" font-weight="700" fill="#475569">Bot IA</text>
+                        <rect x="254" y="254" width="276" height="32" rx="12" fill="#ede9fe"/>
+                        <text x="268" y="274" font-size="12.5" fill="#4c1d95">¡Hola Pedro! 👋 bienvenido al canal</text>
+                        <!-- Escribiendo… -->
+                        <text x="232" y="312" font-size="12" font-style="italic" fill="#64748b">💬 María está escribiendo</text>
+                        <circle cx="384" cy="308" r="2.6" fill="#94a3b8"/><circle cx="393" cy="308" r="2.6" fill="#94a3b8"/><circle cx="402" cy="308" r="2.6" fill="#94a3b8"/>
+                        <!-- Caja de mensaje -->
+                        <rect x="232" y="360" width="472" height="38" rx="19" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+                        <text x="250" y="384" font-size="12.5" fill="#94a3b8">Escribe un mensaje…</text>
+                        <circle cx="722" cy="379" r="17" fill="#7c3aed"/><text x="722" y="384" font-size="13" fill="#fff" text-anchor="middle">➤</text>
+                    </g>
+                    <rect x="16" y="16" width="728" height="398" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+                </svg>
+                <figcaption style="color:rgba(255,255,255,0.82);"><strong style="color:#ffffff;">El mini-Teams que construyes en vivo.</strong> Chat en tiempo real con SignalR — y el mismo contrato que deja entrar a bots, web y (mañana) móvil.</figcaption>
+            </figure>
         </div>
     </section>
 
