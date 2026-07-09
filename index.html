@@ -757,7 +757,104 @@
                     </g>
                     <rect x="16" y="16" width="728" height="398" rx="16" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
                 </svg>
-                <figcaption style="color:rgba(255,255,255,0.82);"><strong style="color:#ffffff;">El mini-Teams que construyes en vivo.</strong> Chat en tiempo real con SignalR — y el mismo contrato que deja entrar a bots, web y (mañana) móvil.</figcaption>
+                <figcaption><strong>El mini-Teams que construyes en vivo.</strong> Chat en tiempo real con SignalR — y el mismo contrato que deja entrar a bots, web y (mañana) móvil.</figcaption>
+            </figure>
+
+            <!-- PLANO DEL MINI-TEAMS — blueprint estilo deep-dive -->
+            <figure class="figure">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 452" role="img" aria-label="El plano del Mini-Teams: en el centro, el hub de SignalR con su base SQLite de historial. Alrededor, muchos clientes que hablan el mismo contrato: tu navegador, otros navegadores, el simulador de bots y (próximamente) Nova. El contrato son 5 nombres: del cliente al servidor SendMessage y SetTyping; del servidor al cliente ReceiveMessage, UserTyping y PresenceChanged." font-family="'Manrope','Segoe UI',system-ui,sans-serif">
+                    <title>El plano del Mini-Teams — un hub, muchos clientes</title>
+                    <defs>
+                        <pattern id="planoGrid2" width="30" height="30" patternUnits="userSpaceOnUse">
+                            <path d="M30 0 H0 V30" fill="none" stroke="#0F766E" stroke-opacity="0.06" stroke-width="1"/>
+                        </pattern>
+                        <marker id="mt-teal" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F766E"/></marker>
+                        <marker id="mt-teal-s" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10,0 L0,5 L10,10 z" fill="#0F766E"/></marker>
+                        <marker id="mt-slate" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker>
+                    </defs>
+
+                    <rect width="860" height="452" rx="18" fill="#ffffff"/>
+                    <rect width="860" height="452" rx="18" fill="url(#planoGrid2)"/>
+                    <rect x="0.75" y="0.75" width="858.5" height="450.5" rx="17.5" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+
+                    <!-- Título -->
+                    <text x="34" y="44" font-size="15" font-weight="800" letter-spacing="1.5" fill="#1a1a2e">EL PLANO DEL MINI-TEAMS</text>
+                    <rect x="34" y="52" width="256" height="4" rx="2" fill="#0F766E"/>
+                    <text x="34" y="75" font-size="12" fill="#718096" font-family="'JetBrains Mono',monospace">un solo hub · muchos clientes · el servidor habla primero</text>
+
+                    <!-- Hub central -->
+                    <rect x="352" y="112" width="206" height="94" rx="16" fill="#F0FDFA" stroke="#0F766E" stroke-width="2.2"/>
+                    <text x="374" y="150" font-size="22">🔌</text>
+                    <text x="408" y="146" font-size="15.5" font-weight="800" fill="#0F766E">Hub · SignalR</text>
+                    <text x="408" y="164" font-size="10.5" fill="#6b7280" font-family="'JetBrains Mono',monospace">/hub/chat</text>
+                    <text x="374" y="190" font-size="11" fill="#4a5568">el canal <tspan font-weight="700">#general</tspan> en tiempo real</text>
+
+                    <!-- SQLite (historial) -->
+                    <rect x="378" y="234" width="154" height="52" rx="13" fill="#f8fafc" stroke="#64748b" stroke-width="1.6"/>
+                    <text x="394" y="266" font-size="17">🗄️</text>
+                    <text x="420" y="258" font-size="13" font-weight="800" fill="#334155">SQLite</text>
+                    <text x="420" y="274" font-size="9.5" fill="#64748b" font-family="'JetBrains Mono',monospace">historial · 50</text>
+                    <line x1="455" y1="206" x2="455" y2="232" stroke="#64748b" stroke-width="1.8" marker-end="url(#mt-slate)" marker-start="url(#mt-slate)"/>
+                    <text x="464" y="224" font-size="9.5" fill="#64748b">guarda / lee</text>
+
+                    <!-- Clientes izquierda -->
+                    <rect x="44" y="98" width="162" height="58" rx="13" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+                    <text x="62" y="132" font-size="19">👤</text>
+                    <text x="92" y="124" font-size="14" font-weight="800" fill="#4c1d95">Tú</text>
+                    <text x="92" y="142" font-size="10.5" fill="#6b7280">navegador</text>
+
+                    <rect x="44" y="176" width="162" height="58" rx="13" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+                    <text x="62" y="210" font-size="18">👥</text>
+                    <text x="90" y="202" font-size="12.5" font-weight="800" fill="#4c1d95">Ana · Luis · María</text>
+                    <text x="90" y="220" font-size="10.5" fill="#6b7280">otros navegadores</text>
+
+                    <!-- Clientes derecha -->
+                    <rect x="654" y="98" width="162" height="58" rx="13" fill="#fff7ec" stroke="#ff9d10" stroke-width="1.6"/>
+                    <text x="672" y="132" font-size="18">🤖</text>
+                    <text x="700" y="124" font-size="13.5" font-weight="800" fill="#b45309">Simulador</text>
+                    <text x="700" y="142" font-size="10.5" fill="#a16207">bots con guion</text>
+
+                    <rect x="654" y="176" width="162" height="58" rx="13" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6" stroke-dasharray="6 4" opacity="0.85"/>
+                    <text x="672" y="210" font-size="18">🧠</text>
+                    <text x="700" y="202" font-size="13.5" font-weight="800" fill="#6d28d9">Nova</text>
+                    <text x="700" y="220" font-size="10" fill="#7c3aed" font-family="'JetBrains Mono',monospace">próximamente · S03</text>
+
+                    <!-- Radios: cada cliente ⇄ hub (mismo contrato, dos vías) -->
+                    <g stroke="#0F766E" stroke-width="2" fill="none">
+                        <line x1="208" y1="128" x2="350" y2="146" marker-end="url(#mt-teal)" marker-start="url(#mt-teal-s)"/>
+                        <line x1="208" y1="204" x2="350" y2="172" marker-end="url(#mt-teal)" marker-start="url(#mt-teal-s)"/>
+                        <line x1="652" y1="128" x2="560" y2="146" marker-end="url(#mt-teal)" marker-start="url(#mt-teal-s)"/>
+                    </g>
+                    <line x1="652" y1="204" x2="560" y2="172" stroke="#7c3aed" stroke-width="2" stroke-dasharray="6 4" opacity="0.7" marker-end="url(#mt-teal)" marker-start="url(#mt-teal-s)"/>
+                    <text x="270" y="120" font-size="9.5" fill="#0F766E" font-family="'JetBrains Mono',monospace">SendMessage ⇄ Receive…</text>
+
+                    <!-- El contrato: los 5 nombres -->
+                    <rect x="232" y="306" width="396" height="130" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.4"/>
+                    <text x="252" y="332" font-size="11" font-weight="800" letter-spacing="1.5" fill="#94a3b8">EL CONTRATO · LOS 5 NOMBRES</text>
+                    <text x="252" y="356" font-size="10.5" font-weight="800" fill="#0F766E">cliente → servidor</text>
+                    <g font-family="'JetBrains Mono',monospace" font-size="10.5" fill="#334155">
+                        <text x="252" y="378">SendMessage(text)</text>
+                        <text x="252" y="398">SetTyping(isTyping)</text>
+                    </g>
+                    <text x="430" y="356" font-size="10.5" font-weight="800" fill="#15803d">servidor → cliente</text>
+                    <g font-family="'JetBrains Mono',monospace" font-size="9.5" fill="#334155">
+                        <text x="430" y="376">ReceiveMessage(user, text, sentAt)</text>
+                        <text x="430" y="394">UserTyping(user, isTyping)</text>
+                        <text x="430" y="412">PresenceChanged(online[])</text>
+                    </g>
+
+                    <!-- Insights de esquina -->
+                    <text x="44" y="356" font-size="11" font-weight="800" fill="#4c1d95">💡 El servidor habla</text>
+                    <text x="44" y="374" font-size="11" font-weight="800" fill="#4c1d95">primero.</text>
+                    <text x="44" y="398" font-size="10.5" fill="#6b7280" font-family="'JetBrains Mono',monospace">Clients.All</text>
+                    <text x="44" y="414" font-size="10.5" fill="#6b7280" font-family="'JetBrains Mono',monospace">.ReceiveMessage(…)</text>
+
+                    <text x="648" y="356" font-size="11" font-weight="800" fill="#0F766E">🔌 Un cliente =</text>
+                    <text x="648" y="376" font-size="11" fill="#4a5568">navegador · bot</text>
+                    <text x="648" y="394" font-size="11" fill="#4a5568">móvil · IA</text>
+                    <text x="648" y="416" font-size="10" fill="#94a3b8">todos, el mismo idioma</text>
+                </svg>
+                <figcaption><strong>El plano del Mini-Teams.</strong> Un <strong>hub</strong> en el centro reparte todo en tiempo real y guarda el historial en SQLite. A su alrededor, <strong>muchos clientes</strong> — tu navegador, otros, los bots del simulador y (pronto) Nova — que encajan sin tocar nada porque hablan <strong>los mismos 5 nombres</strong>. Ese contrato es el idioma común.</figcaption>
             </figure>
         </div>
     </section>
