@@ -801,6 +801,112 @@
                     </div>
                 </div>
             </div>
+
+            <!-- PLANO DE NOVA — blueprint estilo deep-dive -->
+            <figure class="figure" style="margin-top:44px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 402" role="img" aria-label="El plano de Nova: tu navegador envía un mensaje con SendMessage al hub de SignalR, que lo reparte con ReceiveMessage a Nova, otro cliente del contrato. Nova le pregunta a la API de Claude, que puede usar la herramienta buscar_historial sobre la base SQLite. La respuesta de Nova vuelve por el mismo hub, con el mismo ReceiveMessage, a todos." font-family="'Manrope','Segoe UI',system-ui,sans-serif">
+                    <title>El plano de Nova — del @mención a la respuesta</title>
+                    <defs>
+                        <pattern id="planoGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+                            <path d="M30 0 H0 V30" fill="none" stroke="#0F766E" stroke-opacity="0.06" stroke-width="1"/>
+                        </pattern>
+                        <marker id="pa-teal" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0F766E"/></marker>
+                        <marker id="pa-green" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/></marker>
+                        <marker id="pa-orange" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ea580c"/></marker>
+                        <marker id="pa-orange-s" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10,0 L0,5 L10,10 z" fill="#ea580c"/></marker>
+                    </defs>
+
+                    <rect width="860" height="402" rx="18" fill="#ffffff"/>
+                    <rect width="860" height="402" rx="18" fill="url(#planoGrid)"/>
+                    <rect x="0.75" y="0.75" width="858.5" height="400.5" rx="17.5" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+
+                    <!-- Título estilo blueprint -->
+                    <text x="34" y="44" font-size="15" font-weight="800" letter-spacing="1.5" fill="#1a1a2e">EL PLANO DE NOVA</text>
+                    <rect x="34" y="52" width="188" height="4" rx="2" fill="#7c3aed"/>
+                    <text x="34" y="75" font-size="12" fill="#718096" font-family="'JetBrains Mono',monospace">del @mención a la respuesta · Nova = otro cliente del contrato</text>
+
+                    <!-- ── Fila superior: el camino de ida (teal) y la vuelta a todos (verde) ── -->
+                    <!-- Nodo: Tú -->
+                    <rect x="30" y="100" width="150" height="64" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.6"/>
+                    <text x="48" y="130" font-size="20">👤</text>
+                    <text x="78" y="128" font-size="14.5" font-weight="800" fill="#4c1d95">Tú</text>
+                    <text x="78" y="146" font-size="11" fill="#6b7280">navegador</text>
+
+                    <!-- Nodo: Hub -->
+                    <rect x="250" y="100" width="188" height="64" rx="14" fill="#F0FDFA" stroke="#0F766E" stroke-width="1.6"/>
+                    <text x="268" y="130" font-size="18">🔌</text>
+                    <text x="296" y="128" font-size="14.5" font-weight="800" fill="#0F766E">Hub · SignalR</text>
+                    <text x="296" y="146" font-size="10.5" fill="#6b7280" font-family="'JetBrains Mono',monospace">/hub/chat</text>
+
+                    <!-- Nodo: Nova (central, el cliente con cerebro) -->
+                    <rect x="508" y="90" width="188" height="88" rx="16" fill="#ede9fe" stroke="#6d28d9" stroke-width="2.2"/>
+                    <text x="528" y="128" font-size="24">🧠</text>
+                    <text x="562" y="122" font-size="16" font-weight="800" fill="#4c1d95">Nova</text>
+                    <text x="562" y="139" font-size="10" fill="#6d28d9" font-family="'JetBrains Mono',monospace">cliente .NET</text>
+                    <text x="528" y="164" font-size="10.5" fill="#6b7280">otro cliente del contrato</text>
+
+                    <!-- Ida (teal): Tú → Hub → Nova -->
+                    <g stroke="#0F766E" stroke-width="2" fill="none">
+                        <line x1="182" y1="123" x2="247" y2="123" marker-end="url(#pa-teal)"/>
+                        <line x1="440" y1="123" x2="505" y2="123" marker-end="url(#pa-teal)"/>
+                    </g>
+                    <text x="214" y="114" text-anchor="middle" font-size="10" fill="#0F766E" font-family="'JetBrains Mono',monospace">SendMessage</text>
+                    <text x="473" y="114" text-anchor="middle" font-size="10" fill="#0F766E" font-family="'JetBrains Mono',monospace">ReceiveMessage</text>
+
+                    <!-- Vuelta a todos (verde, discontinua): Nova → Hub → Tú -->
+                    <g stroke="#16a34a" stroke-width="2" fill="none" stroke-dasharray="5 4">
+                        <line x1="505" y1="150" x2="440" y2="150" marker-end="url(#pa-green)"/>
+                        <line x1="247" y1="150" x2="182" y2="150" marker-end="url(#pa-green)"/>
+                    </g>
+                    <text x="473" y="163" text-anchor="middle" font-size="10" fill="#15803d" font-family="'JetBrains Mono',monospace">SendMessage</text>
+                    <text x="214" y="163" text-anchor="middle" font-size="10" fill="#15803d" font-family="'JetBrains Mono',monospace">ReceiveMessage · a todos</text>
+
+                    <!-- ── El cerebro y la herramienta (abajo) ── -->
+                    <!-- Nodo: Claude -->
+                    <rect x="694" y="250" width="150" height="68" rx="14" fill="#fff7ec" stroke="#ff9d10" stroke-width="1.6"/>
+                    <text x="712" y="286" font-size="18">☁️</text>
+                    <text x="740" y="282" font-size="14.5" font-weight="800" fill="#b45309">Claude</text>
+                    <text x="740" y="300" font-size="10.5" fill="#a16207">el cerebro · API</text>
+
+                    <!-- Nodo: SQLite -->
+                    <rect x="452" y="300" width="212" height="60" rx="14" fill="#f8fafc" stroke="#64748b" stroke-width="1.6"/>
+                    <text x="470" y="335" font-size="18">🗄️</text>
+                    <text x="498" y="326" font-size="13.5" font-weight="800" fill="#334155">SQLite</text>
+                    <text x="498" y="344" font-size="10" fill="#64748b" font-family="'JetBrains Mono',monospace">buscar_historial · tus datos</text>
+
+                    <!-- Nova ⇄ Claude (naranja, ida y vuelta = la API) -->
+                    <line x1="666" y1="180" x2="756" y2="248" stroke="#ea580c" stroke-width="2" marker-end="url(#pa-orange)" marker-start="url(#pa-orange-s)"/>
+                    <text x="712" y="210" text-anchor="middle" font-size="10" fill="#c2410c" font-family="'JetBrains Mono',monospace" transform="rotate(37 712 210)">pregunta ⇄ piensa</text>
+
+                    <!-- Nova ⇄ SQLite (teal discontinua, el tool use) -->
+                    <line x1="560" y1="180" x2="560" y2="298" stroke="#0F766E" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#pa-teal)" marker-start="url(#pa-teal)"/>
+                    <text x="574" y="242" font-size="10.5" fill="#0F766E" font-weight="700">🛠️ tool use</text>
+
+                    <!-- SQLite → Claude (el resultado llega al cerebro) -->
+                    <line x1="666" y1="318" x2="712" y2="312" stroke="#ea580c" stroke-width="1.8" stroke-dasharray="4 3" marker-end="url(#pa-orange)"/>
+                    <text x="620" y="378" font-size="10" fill="#a16207" font-family="'JetBrains Mono',monospace">resultado → el cerebro ve tus datos</text>
+
+                    <!-- Sello "lazo" para evocar el ciclo -->
+                    <text x="748" y="342" font-size="11" fill="#b45309" font-weight="800">🔁 el lazo</text>
+
+                    <!-- Leyenda (llena el hueco y decodifica los colores, estilo plano) -->
+                    <rect x="44" y="234" width="306" height="132" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.4"/>
+                    <text x="62" y="260" font-size="11" font-weight="800" letter-spacing="2" fill="#94a3b8">LEYENDA</text>
+                    <g stroke-width="2.4" fill="none">
+                        <line x1="62" y1="284" x2="98" y2="284" stroke="#0F766E"/>
+                        <line x1="62" y1="308" x2="98" y2="308" stroke="#16a34a" stroke-dasharray="5 4"/>
+                        <line x1="62" y1="332" x2="98" y2="332" stroke="#ea580c"/>
+                        <line x1="62" y1="356" x2="98" y2="356" stroke="#0F766E" stroke-dasharray="5 4"/>
+                    </g>
+                    <g font-size="11.5" fill="#4a5568">
+                        <text x="110" y="288">ida · el contrato del hub</text>
+                        <text x="110" y="312">la respuesta vuelve · <tspan font-weight="700" fill="#15803d">a todos</tspan></text>
+                        <text x="110" y="336">el cerebro · <tspan font-weight="700" fill="#c2410c">API de Claude</tspan></text>
+                        <text x="110" y="360">tool use · <tspan font-family="'JetBrains Mono',monospace" font-size="10.5">buscar_historial</tspan></text>
+                    </g>
+                </svg>
+                <figcaption><strong>El plano de Nova (Sesión 03).</strong> Tu mensaje sale del navegador, el hub lo reparte y <strong>Nova</strong> — otro cliente del mismo contrato — le pregunta a <strong>Claude</strong>. Si hace falta, Claude pide la herramienta <code style="font-family:var(--font-mono);">buscar_historial</code> y Nova la ejecuta sobre <strong>tus datos</strong> en SQLite. La respuesta vuelve por el <strong>mismo hub</strong>, con el <strong>mismo <code style="font-family:var(--font-mono);">ReceiveMessage</code></strong> — para todos.</figcaption>
+            </figure>
         </div>
     </section>
 
