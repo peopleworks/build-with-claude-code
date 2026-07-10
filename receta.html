@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Los 14 prompts exactos para construir el Mini-Teams (Sesion 02) y el colega de IA Nova (Sesion 03), en orden y con boton de copiar.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%A7%91%E2%80%8D%F0%9F%8D%B3%3C/text%3E%3C/svg%3E">
+<title>La receta del Mini-Teams · Build with Claude Code</title>
+<style>
+  :root{
+    --paper:#F4FAF8; --card:#FFFFFF; --ink:#0E211E; --muted:#4C6360; --faint:#7C918D;
+    --line:#D7E7E2; --line-soft:#E7F1EE;
+    --teal:#0F766E; --teal-soft:#DCEFEB; --teal-ink:#0B5750;
+    --violet:#7C3AED; --violet-soft:#EBE2FB; --violet-ink:#5B21B6;
+    --orange:#EA6A0A; --amber:#FF9D10;
+    --grid:rgba(15,118,110,.07);
+    --shadow:0 1px 2px rgba(11,40,36,.04), 0 12px 30px rgba(11,40,36,.07);
+    --code-bg:#0E211E; --code-ink:#DCEFE9; --code-faint:#7FA79F;
+    --sans:"Manrope","Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,"SF Mono","Cascadia Code",Consolas,monospace;
+    --radius:16px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#0A1513; --card:#0F201D; --ink:#E7F2EF; --muted:#9DB4AF; --faint:#6E8580;
+      --line:#1E3833; --line-soft:#173029;
+      --teal:#3AB7A6; --teal-soft:#12332D; --teal-ink:#7FE3D4;
+      --violet:#A98BF5; --violet-soft:#241A3B; --violet-ink:#C9B4FA;
+      --orange:#F79A4A; --amber:#FFB347;
+      --grid:rgba(58,183,166,.09);
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 16px 40px rgba(0,0,0,.4);
+      --code-bg:#071211; --code-ink:#CFE7E1; --code-faint:#6E958D;
+    }
+  }
+  :root[data-theme="light"]{
+    --paper:#F4FAF8; --card:#FFFFFF; --ink:#0E211E; --muted:#4C6360; --faint:#7C918D;
+    --line:#D7E7E2; --line-soft:#E7F1EE;
+    --teal:#0F766E; --teal-soft:#DCEFEB; --teal-ink:#0B5750;
+    --violet:#7C3AED; --violet-soft:#EBE2FB; --violet-ink:#5B21B6;
+    --orange:#EA6A0A; --amber:#FF9D10; --grid:rgba(15,118,110,.07);
+    --code-bg:#0E211E; --code-ink:#DCEFE9; --code-faint:#7FA79F;
+    --shadow:0 1px 2px rgba(11,40,36,.04), 0 12px 30px rgba(11,40,36,.07);
+  }
+  :root[data-theme="dark"]{
+    --paper:#0A1513; --card:#0F201D; --ink:#E7F2EF; --muted:#9DB4AF; --faint:#6E8580;
+    --line:#1E3833; --line-soft:#173029;
+    --teal:#3AB7A6; --teal-soft:#12332D; --teal-ink:#7FE3D4;
+    --violet:#A98BF5; --violet-soft:#241A3B; --violet-ink:#C9B4FA;
+    --orange:#F79A4A; --amber:#FFB347; --grid:rgba(58,183,166,.09);
+    --code-bg:#071211; --code-ink:#CFE7E1; --code-faint:#6E958D;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 16px 40px rgba(0,0,0,.4);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--sans); line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:26px 26px;
+    background-attachment:fixed;
+  }
+  .wrap{max-width:860px; margin:0 auto; padding:0 22px}
+
+  /* ── Header ── */
+  header{padding:64px 0 30px}
+  .eyebrow{
+    font-family:var(--mono); font-size:.74rem; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--teal); font-weight:600; display:inline-flex; align-items:center; gap:9px;
+  }
+  .eyebrow::before{content:""; width:26px; height:1px; background:var(--teal); display:inline-block}
+  h1{
+    font-size:clamp(2.1rem,6vw,3.3rem); line-height:1.04; margin:.5em 0 .28em;
+    font-weight:800; letter-spacing:-.02em; text-wrap:balance;
+  }
+  h1 .g{
+    background:linear-gradient(100deg,var(--teal),var(--violet)); -webkit-background-clip:text;
+    background-clip:text; color:transparent;
+  }
+  .lede{font-size:1.13rem; color:var(--muted); max-width:60ch; margin:0}
+  .lede b{color:var(--ink); font-weight:700}
+  .chips{display:flex; flex-wrap:wrap; gap:9px; margin-top:26px}
+  .chip{
+    font-family:var(--mono); font-size:.76rem; color:var(--muted);
+    background:var(--card); border:1px solid var(--line); border-radius:100px;
+    padding:6px 13px; display:inline-flex; align-items:center; gap:7px;
+  }
+  .chip b{color:var(--ink)}
+  .chip .k{color:var(--teal)}
+
+  /* ── How to use ── */
+  .howto{
+    margin:30px 0 8px; padding:16px 20px; border-radius:12px;
+    background:var(--card); border:1px solid var(--line);
+    font-size:.95rem; color:var(--muted); box-shadow:var(--shadow);
+  }
+  .howto b{color:var(--ink)}
+  .howto code{
+    font-family:var(--mono); font-size:.86em; background:var(--teal-soft); color:var(--teal-ink);
+    padding:2px 7px; border-radius:6px;
+  }
+
+  /* ── Section / act ── */
+  .act{margin-top:52px}
+  .act-head{display:flex; align-items:baseline; gap:14px; margin-bottom:6px}
+  .act-num{
+    font-family:var(--mono); font-size:.8rem; font-weight:600; letter-spacing:.12em;
+    color:var(--accent); text-transform:uppercase;
+  }
+  .act h2{font-size:1.5rem; margin:0; letter-spacing:-.01em; font-weight:800}
+  .act-sub{color:var(--muted); font-size:.98rem; margin:2px 0 0}
+  .act.s02{--accent:var(--teal); --accent-soft:var(--teal-soft); --accent-ink:var(--teal-ink)}
+  .act.s03{--accent:var(--violet); --accent-soft:var(--violet-soft); --accent-ink:var(--violet-ink)}
+
+  /* ── Timeline ── */
+  .timeline{position:relative; margin-top:26px; padding-left:46px}
+  .timeline::before{
+    content:""; position:absolute; left:15px; top:6px; bottom:6px; width:2px;
+    background:linear-gradient(var(--accent),var(--accent) 60%,transparent);
+    opacity:.4; border-radius:2px;
+  }
+  .step{position:relative; margin-bottom:26px}
+  .node{
+    position:absolute; left:-46px; top:0; width:32px; height:32px; border-radius:50%;
+    background:var(--card); border:2px solid var(--accent); color:var(--accent);
+    display:grid; place-items:center; font-family:var(--mono); font-weight:700; font-size:.82rem;
+    box-shadow:var(--shadow); z-index:1;
+  }
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); overflow:hidden;
+  }
+  .card-body{padding:18px 20px 6px}
+  .step-eyebrow{
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--accent); font-weight:600;
+  }
+  .step h3{font-size:1.16rem; margin:5px 0 6px; letter-spacing:-.01em; font-weight:800; text-wrap:balance}
+  .goal{font-size:.97rem; color:var(--muted); margin:0 0 14px}
+  .goal .win{color:var(--ink); font-weight:600}
+  .why{
+    display:flex; gap:10px; align-items:flex-start; font-size:.9rem; color:var(--muted);
+    padding:12px 20px 16px; border-top:1px dashed var(--line);
+  }
+  .why .lab{
+    font-family:var(--mono); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--accent); font-weight:700; flex:none; margin-top:2px; white-space:nowrap;
+  }
+
+  /* ── Prompt block ── */
+  .prompt{border-radius:11px; overflow:hidden; border:1px solid var(--code-bg); margin-bottom:16px}
+  .prompt-bar{
+    display:flex; align-items:center; gap:7px; background:var(--code-bg);
+    padding:9px 12px; border-bottom:1px solid rgba(255,255,255,.07);
+  }
+  .tl{width:11px; height:11px; border-radius:50%; flex:none}
+  .tl.r{background:#ff5f56}.tl.y{background:#ffbd2e}.tl.g{background:#27c93f}
+  .prompt-label{
+    font-family:var(--mono); font-size:.7rem; color:var(--code-faint); letter-spacing:.05em;
+    margin-left:6px;
+  }
+  .copy{
+    margin-left:auto; font-family:var(--mono); font-size:.72rem; font-weight:600;
+    color:var(--code-ink); background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14);
+    border-radius:7px; padding:4px 12px; cursor:pointer; transition:background .15s, color .15s;
+  }
+  .copy:hover{background:rgba(255,255,255,.16)}
+  .copy.done{background:#27c93f; color:#04140a; border-color:#27c93f}
+  .prompt pre{
+    margin:0; background:var(--code-bg); color:var(--code-ink); overflow-x:auto;
+    padding:15px 16px; font-family:var(--mono); font-size:.82rem; line-height:1.62;
+  }
+  .prompt code{font-family:inherit; white-space:pre}
+
+  /* ── Contract anchor ── */
+  .contract{
+    margin-top:34px; position:relative; border-radius:20px; overflow:hidden;
+    border:1px solid var(--teal); box-shadow:var(--shadow);
+    background:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px),
+      var(--card);
+    background-size:18px 18px,18px 18px,auto;
+  }
+  .contract-head{
+    padding:18px 22px 6px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  }
+  .seal{
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+    color:#fff; background:var(--teal); padding:5px 11px; border-radius:100px; font-weight:600;
+  }
+  .contract-head h3{margin:0; font-size:1.22rem; font-weight:800; letter-spacing:-.01em}
+  .contract p.sub{margin:2px 22px 14px; color:var(--muted); font-size:.96rem; max-width:62ch}
+  .names{
+    display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:0 22px 18px;
+  }
+  @media (max-width:560px){.names{grid-template-columns:1fr}}
+  .name-col h4{
+    font-family:var(--mono); font-size:.66rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--teal-ink); margin:0 0 8px; font-weight:700;
+  }
+  .name{
+    font-family:var(--mono); font-size:.78rem; background:var(--teal-soft); color:var(--teal-ink);
+    border-radius:8px; padding:7px 10px; margin-bottom:6px;
+  }
+  .name .arw{opacity:.55}
+
+  /* ── Interlude (run / wow) ── */
+  .interlude{
+    position:relative; margin:6px 0 26px; padding:15px 18px; border-radius:12px;
+    background:linear-gradient(100deg,var(--teal-soft),transparent);
+    border:1px dashed var(--teal); font-size:.94rem; color:var(--muted);
+  }
+  .interlude .node{border-color:var(--teal); color:var(--teal)}
+  .interlude b{color:var(--ink)}
+  .interlude .cmd{
+    display:block; font-family:var(--mono); font-size:.8rem; margin-top:8px;
+    color:var(--code-ink); background:var(--code-bg); padding:9px 12px; border-radius:8px; overflow-x:auto;
+  }
+
+  /* ── Footer ── */
+  footer{margin:56px 0 70px; padding-top:30px; border-top:1px solid var(--line)}
+  .foot-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  @media (max-width:560px){.foot-grid{grid-template-columns:1fr}}
+  .foot-card{
+    background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px;
+    box-shadow:var(--shadow);
+  }
+  .foot-card h4{margin:0 0 6px; font-size:.98rem; display:flex; align-items:center; gap:8px}
+  .foot-card p{margin:0; font-size:.9rem; color:var(--muted)}
+  .foot-card a{color:var(--teal-ink); font-family:var(--mono); font-size:.84rem; word-break:break-all}
+  .sig{
+    text-align:center; margin-top:30px; font-family:var(--mono); font-size:.76rem;
+    color:var(--faint); letter-spacing:.04em;
+  }
+  .sig b{color:var(--muted)}
+
+  @media (prefers-reduced-motion:no-preference){
+    .step,.contract,.interlude{animation:rise .5s cubic-bezier(.2,.7,.3,1) both}
+  }
+  @keyframes rise{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
+  :focus-visible{outline:2px solid var(--violet); outline-offset:2px; border-radius:4px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <span class="eyebrow">Build with Claude Code · PeopleWorks</span>
+    <h1>La receta del <span class="g">Mini-Teams</span></h1>
+    <p class="lede">De una carpeta vacía a un chat en tiempo real con un <b>colega de IA</b> de verdad. Estos son los <b>prompts exactos que dictamos en clase</b>, en orden — cópialos, pégalos y constrúyelo tú mismo.</p>
+    <div class="chips">
+      <span class="chip"><span class="k">◆</span> <b>14</b>&nbsp;prompts en orden</span>
+      <span class="chip"><span class="k">◆</span> <b>2</b>&nbsp;sesiones</span>
+      <span class="chip"><span class="k">◆</span> copia y pega</span>
+      <span class="chip"><span class="k">◆</span> de cero a 100</span>
+    </div>
+  </header>
+
+  <div class="howto">
+    <b>Cómo se usa esta receta.</b> En la carpeta de tu proyecto abres <code>claude</code> y le vas pegando cada prompt <b>en orden</b>. Primero el contrato (la memoria), luego paso a paso. Cada bloque tiene botón <b>Copiar</b>. Consejo de tarima: pásalos en <b>Plan Mode</b> (<code>Shift+Tab</code>) cuando el paso crea algo grande, para revisar antes de que escriba código.
+  </div>
+
+  <!-- ── EL CONTRATO ── -->
+  <div class="contract">
+    <div class="contract-head">
+      <span class="seal">Paso 00 · el cimiento</span>
+      <h3>El contrato — la memoria que hace que todo encaje</h3>
+    </div>
+    <p class="sub">Antes de escribir una línea de código, le das a Claude las reglas del juego en un <b>CLAUDE.md</b>. Estos 5 nombres son el idioma común: si el servidor y cada cliente los respetan, todo encaja sin tocar nada. Es la lección entera del curso en una tarjeta.</p>
+    <div class="names">
+      <div class="name-col">
+        <h4>Cliente → Servidor</h4>
+        <div class="name">SendMessage(text)</div>
+        <div class="name">SetTyping(isTyping)</div>
+      </div>
+      <div class="name-col">
+        <h4>Servidor → Cliente</h4>
+        <div class="name">ReceiveMessage(user, text, sentAt)</div>
+        <div class="name">UserTyping(user, isTyping)</div>
+        <div class="name">PresenceChanged(online[])</div>
+      </div>
+    </div>
+    <div style="padding:0 22px 20px">
+      <div class="prompt">
+        <div class="prompt-bar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="prompt-label">CLAUDE.md — pégalo tal cual</span><button class="copy" type="button">Copiar</button></div>
+<pre><code># MiniTeams — Guía para Claude
+
+## QUÉ construimos
+Un chat en tiempo real estilo Microsoft Teams, en un solo proyecto:
+- Backend: ASP.NET Core (.NET) + SignalR.
+- Cliente web: HTML + CSS + JavaScript (con el cliente JS de SignalR), servido desde wwwroot.
+- Un solo canal compartido "general" para empezar.
+
+## Contrato del Hub (NO cambiar los nombres)
+- Ruta: /hub/chat   ·   Identidad por query string: /hub/chat?user=&lt;nombre&gt;
+- Cliente → Servidor:
+  - SendMessage(string text)
+  - SetTyping(bool isTyping)
+- Servidor → Cliente:
+  - ReceiveMessage(string user, string text, string sentAt)   // sentAt en ISO 8601
+  - UserTyping(string user, bool isTyping)
+  - PresenceChanged(string[] online)
+
+## Reglas
+- C# moderno: file-scoped namespaces, async/await, pasar CancellationToken.
+- El servidor mantiene en memoria la lista de usuarios en línea (por nombre).
+- Nada de autenticación por ahora: el nombre viene en ?user=.
+- Mantener el código simple y legible; es una clase en vivo.
+
+## Comandos
+- Correr:   dotnet run
+- Correr (HTTP, mejor para la clase):  dotnet run --launch-profile http
+
+## Gotcha (Windows)
+- Si algo "no conecta", usa 127.0.0.1 en vez de localhost (IPv6).</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ ACTO 1 ════════ -->
+  <section class="act s02">
+    <div class="act-head">
+      <span class="act-num">Sesión 02</span>
+    </div>
+    <h2>El Mini-Teams — de cero a chat en vivo</h2>
+    <p class="act-sub">Cinco prompts: el motor en tiempo real, la cara estilo Teams, presencia, historial y publicarlo para todos.</p>
+
+    <div class="timeline">
+
+      <div class="step">
+        <div class="node">01</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="step-eyebrow">Backend · SignalR</div>
+            <h3>El corazón en tiempo real</h3>
+            <p class="goal">Un servidor que <span class="win">reparte cada mensaje al instante</span> a todos los conectados. Aún sin interfaz, pero el hub ya vive.</p>
+            <div class="prompt">
+              <div class="prompt-bar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="prompt-label">pega en Claude Code · Plan Mode</span><button class="copy" type="button">Copiar</button></div>
+<pre><code>Crea un proyecto ASP.NET Core (dotnet new web) llamado MiniTeams con SignalR.
+Implementa un ChatHub en /hub/chat siguiendo EXACTAMENTE el contrato del CLAUDE.md:
+- La identidad del usuario llega en ?user=&lt;nombre&gt; (léela en OnConnectedAsync).
+- Mantén en memoria un conjunto de usuarios en línea (thread-safe).
+- SendMessage(string text): reenvía a todos ReceiveMessage(user, text, sentAt-ISO).
+- SetTyping(bool): reenvía a los demás UserTyping(user, isTyping).
+- Al conectar/desconectar, emite PresenceChanged(online[]) a todos.
+Registra SignalR en Program.cs y mapea el hub en /hub/chat. Sirve archivos estáticos desde wwwroot.</code></pre>
+            </div>
+          </div>
+          <div class="why"><span class="lab">por qué</span><span>SignalR mantiene un canal abierto (WebSocket) con cada navegador. Aquí <b>el servidor habla primero</b>: empuja el mensaje a todos sin que nadie tenga que preguntar. Esa es la diferencia con una API REST normal.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node">02</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="step-eyebrow">Cliente web</div>
+            <h3>La cara estilo Teams</h3>
+            <p class="goal">Una página que se ve como Teams y habla con el hub por SignalR <span class="win">sin recargar nunca</span>. Abres dos ventanas y ya chatean.</p>
+            <div class="prompt">
+              <div class="prompt-bar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="prompt-label">pega en Claude Code</span><button class="copy" type="button">Copiar</button></div>
+<pre><code>Crea el cliente web en wwwroot (index.html, styles.css, app.js) estilo Microsoft Teams:
+- Una pantalla de "login" simple: pide un nombre y un botón Entrar.
+- Layout: barra lateral con el canal "general" y la lista de usuarios en línea; a la derecha, el chat.
+- app.js usa el cliente JS de SignalR (agrega &lt;script&gt; del CDN de @microsoft/signalr).
+  - Conecta a /hub/chat?user=&lt;nombre&gt;.
+  - Al enviar el formulario: llama SendMessage(text).
+  - Escucha ReceiveMessage(user, text, sentAt) y pinta la burbuja (mis mensajes a la derecha).
+  - Escucha PresenceChanged(online) y actualiza la lista de usuarios.
+- Paleta estilo Teams (morados/índigo), burbujas redondeadas, tipografía limpia.</code></pre>
+            </div>
+          </div>
+          <div class="why"><span class="lab">por qué</span><span>El cliente JS de SignalR usa el mismo protocolo que usaría un cliente .NET o móvil. Un solo hub, muchos clientes: <b>tu navegador ya es un cliente en tiempo real.</b></span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node">03</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="step-eyebrow">Tiempo real · detalles</div>
+            <h3>Presencia + “está escribiendo…”</h3>
+            <p class="goal">Los dos detalles que hacen que se sienta <span class="win">vivo</span>: el punto 🟢 de quién está en línea y el “…escribiendo” que todos conocemos.</p>
+            <div class="prompt">
+              <div class="prompt-bar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="prompt-label">pega en Claude Code</span><button class="copy" type="button">Copiar</button></div>
+<pre><code>Agrega dos detalles en tiempo real:
+1) Presencia: junto a cada usuario de la lista, un punto verde 🟢 si está en línea. Usa PresenceChanged.
+2) "Escribiendo…": cuando escribo en la caja, llama SetTyping(true) (y SetTyping(false) al parar
+   ~1.5s después de la última tecla). Escucha UserTyping(user, isTyping) y muestra
+   "Fulano está escribiendo…" debajo del chat. Que desaparezca solo.</code></pre>
+            </div>
+          </div>
+          <div class="why"><span class="lab">por qué</span><span>El “escribiendo…” es un evento efímero: no se guarda, es puro tiempo real. El truco del <b>debounce</b> de 1.5s (parar de avisar cuando dejas de teclear) es el mismo patrón de WhatsApp y Teams.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node">04</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="step-eyebrow">Persistencia · EF Core + SQLite</div>
+            <h3>Que no se pierdan: historial</h3>
+            <p class="goal">Ahora los mensajes solo viven en el aire. Los <span class="win">guardas para que al recargar sigan ahí</span> — con SQLite, un archivo, cero instalación.</p>
+            <div class="prompt">
+              <div class="prompt-bar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="prompt-label">pega en Claude Code</span><button class="copy" type="button">Copiar</button></div>
+<pre><code>Agrega persistencia con EF Core + SQLite:
+- Paquetes: Microsoft.EntityFrameworkCore.Sqlite.
+- Entidad Message (Id, User, Text, SentAt). DbContext con DbSet&lt;Message&gt;.
+- Guarda cada mensaje en SendMessage antes de reenviarlo.
+- Al conectar un cliente, envíale los últimos 50 mensajes (ReceiveMessage) como historial.
+- Crea la base con EnsureCreated() al arrancar (sin migraciones, para la clase).</code></pre>
+            </div>
+          </div>
+          <div class="why"><span class="lab">por qué</span><span>SQLite es un solo archivo <b>.db</b>: sin servidor, sin cadenas de conexión raras. Perfecto para clase. En producción se puede cambiar a SQL Server sin tocar el resto.</span></div>
+        </div>
+      </div>
+
+      <!-- Interlude: el WOW del simulador -->
+      <div class="step">
+        <div class="interlude">
+          <div class="node">▶</div>
+          <b>El momento WOW — un equipo entero con guion.</b> Esto no es un prompt: es correr el <b>simulador</b> (bots que ya vienen en la carpeta) apuntándolo a tu app. El canal cobra vida solo… y un bot te responde por tu nombre. La moraleja: el simulador <b>no toca la app</b>, solo habla el mismo contrato.
+          <span class="cmd">cd simulador &nbsp;&amp;&amp;&nbsp; dotnet run -- --api http://127.0.0.1:5210</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node">05</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="step-eyebrow">Publicar · IIS</div>
+            <h3>Publicarlo para todos</h3>
+            <p class="goal">Para que se lo lleven: lo preparas para el servidor y <span class="win">todos entran por una URL</span>, desde su casa.</p>
+            <div class="prompt">
+              <div class="prompt-bar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="prompt-label">pega en Claude Code</span><button class="copy" type="button">Copiar</button></div>
+<pre><code>Prepara el proyecto para IIS:
+- Genera un web.config para ASP.NET Core (módulo AspNetCoreModuleV2, in-process) con WebSockets habilitados (SignalR los necesita).
+- Deja instrucciones para: dotnet publish -c Release -o publish</code></pre>
+            </div>
+          </div>
+          <div class="why"><span class="lab">por qué</span><span>El <b>web.config + WebSockets</b> es el 90% de los tropiezos al desplegar SignalR en IIS. Si el chat carga pero no actualiza en vivo, casi siempre es WebSockets desactivado en Windows.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════ ACTO 2 ════════ -->
+  <section class="act s03">
+    <div class="act-head">
+      <span class="act-num">Sesión 03</span>
+    </div>
+    <h2>El colega con IA — Nova</h2>
+    <p class="act-sub">No tocamos el Mini-Teams. Le enchufamos una IA <b>como un cliente más</b>: misma conexión, mismo contrato — solo que su cerebro es Claude.</p>
+
+    <div class="timeline">
+
+      <div class="step">
+        <div class="node">06</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="step-eyebrow">Nova · se conecta</div>
+            <h3>Nova entra y escucha</h3>
+            <p class="goal">Primero Nova <span class="win">entra al canal y oye todo</span> — todavía sin cerebro. Aparece 🟢 en línea porque habla el mismo contrato que el simulador.</p>
+            <div class="prompt">
+              <div class="prompt-bar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="prompt-label">pega en Claude Code · Plan Mode</span><button class="copy" type="button">Copiar</button></div>
+<pre><code>Crea un proyecto de consola .NET 10 llamado ColegaIA (carpeta colega-ia/) que se conecte
+al hub del Mini-Teams como un cliente más, usando Microsoft.AspNetCore.SignalR.Client 10.0.0.
+NO referencia la app: solo habla el contrato por su nombre (como el simulador).
+- Identidad: se conecta a /hub/chat?user=Nova.
+- Acepta el argumento --api &lt;url&gt; (por defecto http://127.0.0.1:5210).
+- Escucha ReceiveMessage(user, text, sentAt) y, por ahora, imprime en consola "user: text".
+- Ignora sus propios mensajes (cuando user == "Nova").
+- Guarda en memoria las últimas 30 líneas del canal (una cola thread-safe) — las usaremos como contexto luego.
+Al arrancar, imprime "Nova en línea" y quédate escuchando hasta Ctrl+C.</code></pre>
+            </div>
+          </div>
+          <div class="why"><span class="lab">por qué</span><span>Es 1:1 con el simulador de la S02: misma conexión, mismo <code>?user=</code>. Nova ya sale en la lista de en línea del navegador <b>porque habla el contrato</b> — sin tocar la app.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node">07</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="step-eyebrow">El cerebro · API de Claude</div>
+            <h3>Primera llamada a Claude</h3>
+            <p class="goal">Cuando alguien nombre a Nova, en vez de una frase fija <span class="win">le preguntas a Claude</span> — con la API cruda, sin SDK, para ver la forma real.</p>
+            <div class="prompt">
+              <div class="prompt-bar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="prompt-label">pega en Claude Code</span><button class="copy" type="button">Copiar</button></div>
+<pre><code>Agrega el "cerebro" de Nova con la API de Mensajes de Claude, con HttpClient (SIN SDK):
+- Endpoint: POST https://api.anthropic.com/v1/messages
+- Headers: x-api-key (leído de la variable de entorno ANTHROPIC_API_KEY, o de --key),
+  y anthropic-version: 2023-06-01.
+- Modelo: claude-haiku-4-5-20251001 (o --model / variable CLAUDE_MODEL). max_tokens 400.
+- Dispara SOLO cuando el mensaje mencione "Nova" (o "@nova"), y nunca a sus propios mensajes.
+- System prompt: "Eres Nova, una compañera de equipo con IA en un chat estilo Teams de PeopleWorks.
+  Respondes en español, cálida y BREVE (1-3 frases, como un chat)."
+- En el mensaje de usuario, incluye las últimas líneas del canal (contexto) + lo que escribió la persona.
+- Toma el texto de la respuesta de Claude y publícalo con SendMessage.
+- Si la API falla, que Nova diga algo amable en el canal en vez de caerse.</code></pre>
+            </div>
+          </div>
+          <div class="why"><span class="lab">por qué</span><span>La forma real de la IA: un <b>system</b>, unos <b>messages</b>, un JSON. Eso es todo. Y la clave (<code>x-api-key</code>) va en una <b>variable de entorno</b>, nunca en el código.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node">08</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="step-eyebrow">Naturalidad</div>
+            <h3>Modales humanos</h3>
+            <p class="goal">Nova responde de golpe y se nota que es máquina. Le das modales: que muestre <span class="win">“Nova está escribiendo…”</span> mientras piensa, y que no conteste como loca.</p>
+            <div class="prompt">
+              <div class="prompt-bar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="prompt-label">pega en Claude Code</span><button class="copy" type="button">Copiar</button></div>
+<pre><code>Dale a Nova modales humanos:
+1) Antes de pensar, llama SetTyping(true); cuando publique la respuesta, SetTyping(false).
+   Así el "Nova está escribiendo…" del Mini-Teams se enciende de verdad mientras Claude piensa.
+2) Anti-spam: que no responda más de una vez cada ~2 segundos, y que NO procese dos respuestas
+   a la vez (si ya está pensando, ignora el nuevo disparo).</code></pre>
+            </div>
+          </div>
+          <div class="why"><span class="lab">por qué</span><span>El mismo indicador de “escribiendo” que <b>tú programaste</b> la semana pasada ahora lo dispara una IA. <code>SetTyping</code> es del contrato: Nova lo usa igual que cualquier cliente. Todo encaja.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node">09</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="step-eyebrow">Tool use · IA + tus datos</div>
+            <h3>Manos para tus datos</h3>
+            <p class="goal">Nova solo sabe lo que oyó desde que entró. Le das una <span class="win">herramienta para buscar en el historial real</span> — la misma SQLite de la app.</p>
+            <div class="prompt">
+              <div class="prompt-bar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="prompt-label">pega en Claude Code</span><button class="copy" type="button">Copiar</button></div>
+<pre><code>Dale a Nova una herramienta con "tool use" de Claude:
+- Declara en el request un tool "buscar_historial" con input { termino: string, limite?: int }.
+- Cuando la respuesta de Claude tenga stop_reason == "tool_use", ejecuta la herramienta y
+  devuélvele el resultado como un bloque tool_result, y vuelve a llamar a la API (lazo) hasta
+  que conteste con texto. Pon un tope de 4 vueltas por seguridad.
+- La herramienta lee la MISMA base SQLite de la app en solo lectura (Microsoft.Data.Sqlite,
+  Data Source=&lt;db&gt;;Mode=ReadOnly): SELECT User, Text FROM Messages WHERE Text LIKE '%termino%'
+  ORDER BY Id DESC LIMIT &lt;limite (máx 20)&gt;. Devuelve las líneas encontradas.
+- Acepta --db &lt;ruta&gt; (por defecto ..\app-referencia\miniteams.db). Si la base no existe,
+  que la herramienta degrade con gracia (que Nova diga que no puede ver el historial ahora).</code></pre>
+            </div>
+          </div>
+          <div class="why"><span class="lab">por qué</span><span>El lazo: <b>pregunta → Claude pide una herramienta → tu código la ejecuta → Claude ve el resultado → responde.</b> Eso que hicimos a mano es, por dentro, lo que te da empaquetado un servidor MCP.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node">10</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="step-eyebrow">Remate visual · reacciones</div>
+            <h3>Reacciones que llueven — servidor</h3>
+            <p class="goal">Una palabra nueva en el contrato: <span class="win">un toque 👏 y ese emoji lo ven TODOS</span>. Primero el servidor lo reparte.</p>
+            <div class="prompt">
+              <div class="prompt-bar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="prompt-label">pega en Claude Code · servidor</span><button class="copy" type="button">Copiar</button></div>
+<pre><code>Agrega al ChatHub un método SendReaction(string emoji) que reparta a TODOS (Clients.All)
+un evento ReceiveReaction(user, emoji). NO lo guardes en la base: es efímero. Limita el emoji
+a pocos caracteres por seguridad.</code></pre>
+            </div>
+          </div>
+          <div class="why"><span class="lab">por qué</span><span>Una función nueva es <b>una palabra nueva en el contrato</b>: la agregas una vez en el hub y todos los clientes pueden recibirla. Efímera, no toca la base.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node">11</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="step-eyebrow">Remate visual · reacciones</div>
+            <h3>Reacciones que llueven — cliente</h3>
+            <p class="goal">Ahora la magia visible: emojis que <span class="win">flotan por la pantalla de todos</span>, un aplausómetro y, al tope, ¡confeti!</p>
+            <div class="prompt">
+              <div class="prompt-bar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="prompt-label">pega en Claude Code · cliente</span><button class="copy" type="button">Copiar</button></div>
+<pre><code>Añade una barra de botones de emoji (👏 ❤️ 🎉 🔥 😂). Al tocar uno, invoca SendReaction(emoji).
+Escucha ReceiveReaction y haz "flotar" ese emoji subiendo por la pantalla (posición y deriva al
+azar; se borra al terminar la animación). Añade un "aplausómetro" en la cabecera que suba con cada
+reacción y baje solo; cuando llegue al tope, dispara una lluvia de confeti.</code></pre>
+            </div>
+          </div>
+          <div class="why"><span class="lab">por qué</span><span>Es la demo más participativa: la sala entera abre la URL, toca 👏 a la vez, y la pantalla se vuelve una <b>tormenta de aplausos reales</b>. Interacción en vivo con la app.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node">12</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="step-eyebrow">Remate visual · videollamada</div>
+            <h3>Videollamada 1:1 — señalización</h3>
+            <p class="goal">El mismo hub, ahora <span class="win">te conecta una llamada</span>. El servidor solo presenta a los dos: dirige avisos a UNA persona.</p>
+            <div class="prompt">
+              <div class="prompt-bar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="prompt-label">pega en Claude Code · servidor</span><button class="copy" type="button">Copiar</button></div>
+<pre><code>Agrega señalización de videollamada 1:1 al hub. Registra un IUserIdProvider que use el ?user=
+como identidad (para poder dirigir eventos con Clients.User(nombre)). Métodos del cliente al
+servidor: CallUser/AcceptCall/DeclineCall/HangUp(targetUser) y SendSignal(targetUser, signal).
+Reenvían al destinatario: IncomingCall/CallAccepted/CallDeclined/CallEnded(fromUser) y
+ReceiveSignal(fromUser, signal). El hub NO transporta vídeo: solo reenvía "sobres".</code></pre>
+            </div>
+          </div>
+          <div class="why"><span class="lab">por qué</span><span>Aquí la señal va dirigida a <b>una</b> persona (<code>Clients.User(nombre)</code>), no a todos. El hub que reparte mensajes es el mismo que arma la llamada — solo hacía falta un mensajero.</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node">13</div>
+        <div class="card">
+          <div class="card-body">
+            <div class="step-eyebrow">Remate visual · videollamada</div>
+            <h3>Videollamada 1:1 — WebRTC</h3>
+            <p class="goal">El cierre que deja la boca abierta: <span class="win">vídeo en vivo dentro del Mini-Teams</span>. El vídeo va directo entre navegadores (P2P).</p>
+            <div class="prompt">
+              <div class="prompt-bar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="prompt-label">pega en Claude Code · cliente (call.js)</span><button class="copy" type="button">Copiar</button></div>
+<pre><code>Botón 📞 junto a cada usuario en línea. Al llamar, usa WebRTC (RTCPeerConnection con el STUN
+de Google) para vídeo+audio P2P; intercambia la oferta/respuesta SDP y los candidatos ICE por
+SendSignal/ReceiveSignal del hub. Muestra un panel con el vídeo remoto grande, tu vídeo en
+pequeño (PiP) y botones de micro, cámara y colgar, más un aviso de llamada entrante con
+Aceptar/Rechazar.</code></pre>
+            </div>
+          </div>
+          <div class="why"><span class="lab">por qué</span><span>WebRTC solo necesitaba un mensajero para presentar a los dos navegadores… y ya teníamos uno: el hub. El vídeo viaja <b>directo entre ellos</b>; el servidor no lo toca. <br><span style="color:var(--faint)">Nota: el vídeo exige contexto seguro — funciona en <code>127.0.0.1</code> y en <code>https://</code>.</span></span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-grid">
+      <div class="foot-card">
+        <h4>🧬 Clónalo y constrúyelo</h4>
+        <p>El proyecto base de la Sesión 02 (contrato, simulador y app de referencia) vive en el repo. Los pasos de Nova y el remate visual se suben ahí después de la sesión.</p>
+        <a href="https://github.com/peopleworks/mini-teams-lab">github.com/peopleworks/mini-teams-lab</a>
+      </div>
+      <div class="foot-card">
+        <h4>💬 Pruébalo en vivo</h4>
+        <p>El Mini-Teams publicado, corriendo en el servidor de PeopleWorks. Entra con un nombre y saluda al canal.</p>
+        <a href="https://miniteams.peopleworksservices.com">miniteams.peopleworksservices.com</a>
+      </div>
+    </div>
+    <div class="howto" style="margin-top:14px">
+      <b>🔑 Sobre la API key (pasos 07–09).</b> Nova usa la <b>API de plataforma</b> de Claude (console.anthropic.com), que es <b>distinta</b> de tu suscripción de Claude Code y funciona con <b>créditos</b>. Con el modelo <code>claude-haiku-4-5</code> cada respuesta cuesta céntimos; para una respuesta “de lujo”, sube a <code>claude-opus-4-8</code>.
+    </div>
+    <p class="sig"><b>Build with Claude Code</b> · PeopleWorks · La app no es magia: es una conversación reproducible.</p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var code = btn.closest('.prompt').querySelector('code');
+      var text = code.textContent;
+      navigator.clipboard.writeText(text).then(function(){
+        var prev = btn.textContent;
+        btn.textContent = '¡Copiado!';
+        btn.classList.add('done');
+        setTimeout(function(){ btn.textContent = prev; btn.classList.remove('done'); }, 1400);
+      }).catch(function(){
+        // Fallback: seleccionar el texto para copiar a mano
+        var r = document.createRange(); r.selectNodeContents(code);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      });
+    });
+  });
+</script>
+</body>
+</html>
